@@ -528,4 +528,108 @@ def resolve_pending_results(state):
         acierto = _acierto_por_mercado(entry["mercado"], goles_local, goles_visita)
         entry["goles_local"] = goles_local
         entry["goles_visita"] = goles_visita
-        entry["aci
+        entry["acierto"] = acierto
+        entry["resuelto"] = True
+
+    state["last_resolve_date"] = today
+    return state
+
+
+def build_rendimiento_message(state):
+    """Arma el resumen de aciertos para el comando /rendimiento."""
+    log = state.get("value_log", [])
+    if not log:
+        return (
+            "📊 Todavía no hay value bets registradas.\n"
+            "Se van guardando automáticamente cada vez que el bot detecta "
+            "una con /valor on activo."
+        )
+
+    resueltas = [e for e in log if e["resuelto"]]
+    pendientes = len(log) - len(resueltas)
+    aciertos = [e for e in resueltas if e["acierto"]]
+
+    lines = [
+        "📊 Rendimiento de tus value bets:",
+        f"Total detectadas: {len(log)}",
+        f"Resueltas (con resultado ya conocido): {len(resueltas)}",
+        f"Pendientes (partido aún no jugado/procesado): {pendientes}",
+    ]
+
+    if resueltas:
+        pct = len(aciertos) / len(resueltas) * 100
+        lines.append(f"✅ Aciertos: {len(aciertos)}/{len(resueltas)} ({pct:.1f}%)")
+
+        # Ganancia simulada apostando 1 unidad plana por cada value bet
+        ganancia = 0.0
+        for e in resueltas:
+            ganancia += (e["cuota"] - 1) if e["acierto"] else -1
+        lines.append(f"💰 Resultado simulado (1 unidad c/u): {ganancia:+.2f} unidades")
+    else:
+        lines.append("Aún no hay ninguna resuelta — vuelve a preguntar en unos días.")
+
+    lines.append(
+        "\nNota: esto es solo seguimiento estadístico de tu modelo, no "
+        "reemplaza tu propio juicio antes de apostar dinero real."
+    )
+    return "\n".join(lines)
+
+
+# Mismo gancho previo, ya no se usa directamente (ver poisson_model.py),
+# se deja por compatibilidad si algo externo lo importa.
+def value_bet_hook(event, market_probability):
+    return False
+
+
+def check_alerts(state):
+    pending = [a for a in state["alerts"] if not a["triggered"]]
+    if not pending:
+        return state
+
+    events = fetch_soccer_events()
+    if not events:
+        return state
+
+    for alert in pending:
+        for ev in events:
+            home = ev.get("home")
+            away = ev.get("away")
+            if not home or not away:
+                continue
+
+            if alert["team_home"].lower() not in home.lower():
+                continue
+            if alert["team_away"].lower() not in away.lower():
+                continue
+
+            current_odds = extract_home_win_odds(ev)
+            if current_odds is None:
+                continue
+
+            if current_odds <= alert["threshold_odds"]:
+                send_message(
+                    alert["chat_id"],
+                    f"🚨 ¡Alerta activada!\n{home} vs {away}\n"
+                    f"Cuota local ahora: {current_odds} "
+                    f"(tu umbral: {alert['threshold_odds']})",
+                )
+                alert["triggered"] = True
+
+    return state
+
+
+def main():
+    if not TELEGRAM_BOT_TOKEN:
+        raise RuntimeError("Falta TELEGRAM_BOT_TOKEN")
+
+    state = load_state()
+    state = process_commands(state)
+    state = check_alerts(state)
+    state = check_value_bets(state)
+    state = resolve_pending_results(state)
+    save_state(state)
+    print("Corrida completa. Alertas guardadas en alerts.json")
+
+
+if __name__ == "__main__":
+    main()
