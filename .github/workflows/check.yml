@@ -1,0 +1,43 @@
+name: Revisar cuotas y enviar alertas
+
+on:
+  schedule:
+    # Corre cada 30 minutos. Este intervalo está calculado para NO exceder
+    # el límite de 100 solicitudes/día del plan gratuito de API-Football
+    # (cada corrida con alertas pendientes gasta 2 solicitudes: fixtures + odds).
+    # GitHub tampoco garantiza el minuto exacto del cron.
+    - cron: "*/30 * * * *"
+  workflow_dispatch: {}  # permite correrlo manualmente desde la pestaña Actions
+
+# Necesario para que el workflow pueda "hacer commit" del archivo alerts.json actualizado
+permissions:
+  contents: write
+
+jobs:
+  check-odds:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Descargar el código del repo
+        uses: actions/checkout@v4
+
+      - name: Configurar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Instalar dependencias
+        run: pip install -r requirements.txt
+
+      - name: Ejecutar revisión de cuotas
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          APIFOOTBALL_KEY: ${{ secrets.APIFOOTBALL_KEY }}
+        run: python check.py
+
+      - name: Guardar alerts.json actualizado en el repo
+        run: |
+          git config --global user.name "bot-alertas"
+          git config --global user.email "bot@users.noreply.github.com"
+          git add alerts.json
+          git diff --staged --quiet || git commit -m "Actualizar estado de alertas [skip ci]"
+          git push
