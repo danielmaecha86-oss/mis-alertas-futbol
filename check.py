@@ -23,6 +23,8 @@ import json
 from datetime import date
 import requests
 
+from poisson_model import find_value_bets
+
 TELEGRAM_BOT_TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN", "")
 APIFOOTBALL_KEY = os.environ.get("APIFOOTBALL_KEY", "")
 
@@ -36,9 +38,26 @@ STATE_FILE = os.path.join(os.path.dirname(__file__), "alerts.json")
 # ---------------------------------------------------------------------------
 def load_state():
     if not os.path.exists(STATE_FILE):
-        return {"last_update_id": 0, "next_alert_id": 1, "alerts": []}
+        return {
+            "last_update_id": 0,
+            "next_alert_id": 1,
+            "alerts": [],
+            "value_subscribers": [],
+            "value_alerts_sent": [],
+            "last_value_scan_date": "",
+            "value_log": [],
+            "last_resolve_date": "",
+        }
     with open(STATE_FILE, "r", encoding="utf-8") as f:
-        return json.load(f)
+        state = json.load(f)
+    # Compatibilidad con estados guardados antes de agregar value bets
+    state.setdefault("value_subscribers", [])
+    state.setdefault("value_alerts_sent", [])
+    state.setdefault("last_value_scan_date", "")
+    # Compatibilidad con estados guardados antes de agregar el registro de aciertos
+    state.setdefault("value_log", [])
+    state.setdefault("last_resolve_date", "")
+    return state
 
 
 def save_state(state):
@@ -86,10 +105,42 @@ def process_commands(state):
                 "/partidos - ver partidos de hoy con cuotas\n"
                 "/alerta EQUIPO_LOCAL EQUIPO_VISITA CUOTA\n"
                 "/alertas\n"
-                "/quitar ID\n\n"
+                "/quitar ID\n"
+                "/valor on - activar alertas automáticas de value bets\n"
+                "/valor off - desactivar alertas de value bets\n"
+                "/rendimiento - ver aciertos de tus value bets pasadas\n\n"
                 "Nota: reviso cada 30 min (versión GitHub Actions), "
                 "no en tiempo real.",
             )
+
+        elif text.startswith("/rendimiento"):
+            send_message(chat_id, build_rendimiento_message(state))
+
+        elif text.startswith("/valor"):
+            args = text.split()[1:]
+            subs = state["value_subscribers"]
+            if args and args[0].lower() == "off":
+                if chat_id in subs:
+                    subs.remove(chat_id)
+                send_message(chat_id, "🔕 Alertas de value bets desactivadas.")
+            elif args and args[0].lower() == "on":
+                if chat_id not in subs:
+                    subs.append(chat_id)
+                send_message(
+                    chat_id,
+                    "🎯 Alertas de value bets activadas. Te aviso cuando mi "
+                    "modelo Poisson detecte una cuota con valor en los "
+                    "partidos de hoy que cubre tu Excel (11 ligas cargadas). "
+                    "Umbral mínimo: "
+                    f"{VALUE_THRESHOLD_DISPLAY}.",
+                )
+            else:
+                estado = "activadas ✅" if chat_id in subs else "desactivadas ⏸️"
+                send_message(
+                    chat_id,
+                    f"Tus alertas de value bets están {estado}.\n"
+                    "Usa /valor on o /valor off para cambiarlo.",
+                )
 
         elif text.startswith("/partidos"):
             events = fetch_soccer_events()
@@ -202,7 +253,12 @@ def fetch_soccer_events():
       1. /fixtures?date=hoy  -> para saber qué equipos juegan (nombres)
       2. /odds?date=hoy      -> para las cuotas de esos partidos
     y devuelve una lista de partidos con la forma:
-      {"fixture_id": int, "home": str, "away": str, "home_odds": float|None}
+      {
+        "fixture_id": int, "home": str, "away": str,
+        "home_odds": float|None, "draw_odds": float|None, "away_odds": float|None,
+        "over25_odds": float|None, "under25_odds": float|None,
+        "btts_yes_odds": float|None, "btts_no_odds": float|None,
+      }
 
     Nota: revisa /partidos en Telegram para confirmar que esto trae datos
     reales antes de crear alertas en serio. La estructura de la API puede
@@ -233,23 +289,67 @@ def fetch_soccer_events():
         if home is None:
             continue
 
-        home_odds = None
+        parsed = {
+            "fixture_id": fid,
+            "home": home,
+            "away": away,
+            "home_odds": None,
+            "draw_odds": None,
+            "away_odds": None,
+            "over25_odds": None,
+            "under25_odds": None,
+            "btts_yes_odds": None,
+            "btts_no_odds": None,
+        }
+
         for bookmaker in od.get("bookmakers", []):
             for bet in bookmaker.get("bets", []):
-                if bet.get("name") == "Match Winner":
-                    for val in bet.get("values", []):
+                bet_name = bet.get("name", "")
+                values = bet.get("values", [])
+
+                if bet_name == "Match Winner" and parsed["home_odds"] is None:
+                    for val in values:
+                        try:
+                            odd = float(val["odd"])
+                        except (KeyError, ValueError, TypeError):
+                            continue
                         if val.get("value") == "Home":
-                            try:
-                                home_odds = float(val["odd"])
-                            except (KeyError, ValueError, TypeError):
-                                pass
-                    break
-            if home_odds is not None:
+                            parsed["home_odds"] = odd
+                        elif val.get("value") == "Draw":
+                            parsed["draw_odds"] = odd
+                        elif val.get("value") == "Away":
+                            parsed["away_odds"] = odd
+
+                elif bet_name == "Goals Over/Under" and parsed["over25_odds"] is None:
+                    for val in values:
+                        try:
+                            odd = float(val["odd"])
+                        except (KeyError, ValueError, TypeError):
+                            continue
+                        label = str(val.get("value", ""))
+                        if label == "Over 2.5":
+                            parsed["over25_odds"] = odd
+                        elif label == "Under 2.5":
+                            parsed["under25_odds"] = odd
+
+                elif bet_name == "Both Teams Score" and parsed["btts_yes_odds"] is None:
+                    for val in values:
+                        try:
+                            odd = float(val["odd"])
+                        except (KeyError, ValueError, TypeError):
+                            continue
+                        label = str(val.get("value", "")).lower()
+                        if label == "yes":
+                            parsed["btts_yes_odds"] = odd
+                        elif label == "no":
+                            parsed["btts_no_odds"] = odd
+
+            # Ya tenemos los 3 mercados de la primera casa que los trae; no
+            # hace falta seguir revisando más bookmakers para este partido.
+            if parsed["home_odds"] and parsed["over25_odds"] and parsed["btts_yes_odds"]:
                 break
 
-        events.append(
-            {"fixture_id": fid, "home": home, "away": away, "home_odds": home_odds}
-        )
+        events.append(parsed)
 
     return events
 
@@ -258,59 +358,174 @@ def extract_home_win_odds(event):
     return event.get("home_odds")
 
 
-# Mismo gancho para tu modelo Poisson/xG que en bot.py.
-# Reemplaza el "return False" por tu lógica real cuando la tengas lista.
-def value_bet_hook(event, market_probability):
-    return False
+VALUE_THRESHOLD_DISPLAY = "5%"  # se muestra en /valor; ajusta si cambias teams_stats.json
 
 
-def check_alerts(state):
-    pending = [a for a in state["alerts"] if not a["triggered"]]
-    if not pending:
+def scan_value_bets(events):
+    """
+    Recorre los partidos del día, corre el modelo Poisson (poisson_model.py)
+    sobre cada uno, y arma un mensaje por partido donde se detectó valor.
+    Solo incluye partidos de equipos que existen en teams_stats.json (las
+    11 ligas que cargaste en tu Excel).
+    Devuelve una lista de dicts:
+      {"fixture_id", "home", "away", "message", "value_bets"}
+    donde "value_bets" trae los datos crudos de cada mercado con valor
+    (para poder guardarlos luego en el registro de rendimiento).
+    """
+    results = []
+    for ev in events:
+        value_bets = find_value_bets(
+            ev["home"],
+            ev["away"],
+            odds_1x2=(ev.get("home_odds"), ev.get("draw_odds"), ev.get("away_odds")),
+            odds_over25=ev.get("over25_odds"),
+            odds_under25=ev.get("under25_odds"),
+            odds_btts_yes=ev.get("btts_yes_odds"),
+            odds_btts_no=ev.get("btts_no_odds"),
+        )
+        if not value_bets:
+            continue  # None (equipo no está en tu Excel) o [] (sin valor)
+
+        lines = [f"🎯 Value bet detectada: {ev['home']} vs {ev['away']}"]
+        for vb in value_bets:
+            lines.append(
+                f"  • {vb['mercado']}: cuota {vb['cuota']} | "
+                f"prob. modelo {vb['prob_modelo']*100:.1f}% vs "
+                f"implícita {vb['prob_implicita']*100:.1f}% "
+                f"(+{vb['diferencia']*100:.1f} pts)"
+            )
+        results.append(
+            {
+                "fixture_id": ev["fixture_id"],
+                "home": ev["home"],
+                "away": ev["away"],
+                "message": "\n".join(lines),
+                "value_bets": value_bets,
+            }
+        )
+
+    return results
+
+
+def check_value_bets(state):
+    """
+    Revisa partidos de hoy para todos los suscriptores de /valor on.
+    Evita re-alertar el mismo partido el mismo día usando
+    state["value_alerts_sent"].
+    """
+    if not state["value_subscribers"]:
         return state
+
+    today = date.today().isoformat()
+    if state.get("last_value_scan_date") != today:
+        state["value_alerts_sent"] = []
+        state["last_value_scan_date"] = today
 
     events = fetch_soccer_events()
     if not events:
         return state
 
-    for alert in pending:
-        for ev in events:
-            home = ev.get("home")
-            away = ev.get("away")
-            if not home or not away:
-                continue
+    found = scan_value_bets(events)
+    for item in found:
+        fixture_id = item["fixture_id"]
+        if fixture_id in state["value_alerts_sent"]:
+            continue
+        for chat_id in state["value_subscribers"]:
+            send_message(chat_id, item["message"])
+        state["value_alerts_sent"].append(fixture_id)
 
-            if alert["team_home"].lower() not in home.lower():
-                continue
-            if alert["team_away"].lower() not in away.lower():
-                continue
-
-            current_odds = extract_home_win_odds(ev)
-            if current_odds is None:
-                continue
-
-            if current_odds <= alert["threshold_odds"]:
-                send_message(
-                    alert["chat_id"],
-                    f"🚨 ¡Alerta activada!\n{home} vs {away}\n"
-                    f"Cuota local ahora: {current_odds} "
-                    f"(tu umbral: {alert['threshold_odds']})",
-                )
-                alert["triggered"] = True
+        # Registrar cada mercado detectado en el log de rendimiento, para
+        # poder revisar más adelante si el modelo acertó o no (/rendimiento).
+        for vb in item["value_bets"]:
+            state["value_log"].append(
+                {
+                    "fixture_id": fixture_id,
+                    "fecha": today,
+                    "home": item["home"],
+                    "away": item["away"],
+                    "mercado": vb["mercado"],
+                    "cuota": vb["cuota"],
+                    "prob_modelo": vb["prob_modelo"],
+                    "prob_implicita": vb["prob_implicita"],
+                    "diferencia": vb["diferencia"],
+                    "resuelto": False,
+                    "acierto": None,
+                    "goles_local": None,
+                    "goles_visita": None,
+                }
+            )
 
     return state
 
 
-def main():
-    if not TELEGRAM_BOT_TOKEN:
-        raise RuntimeError("Falta TELEGRAM_BOT_TOKEN")
+def _acierto_por_mercado(mercado, goles_local, goles_visita):
+    """Dado el resultado final, dice si esa apuesta específica habría ganado."""
+    total = goles_local + goles_visita
+    if mercado == "Local (1)":
+        return goles_local > goles_visita
+    if mercado == "Empate (X)":
+        return goles_local == goles_visita
+    if mercado == "Visitante (2)":
+        return goles_visita > goles_local
+    if mercado == "Over 2.5":
+        return total > 2.5
+    if mercado == "Under 2.5":
+        return total < 2.5
+    if mercado == "BTTS - Sí":
+        return goles_local > 0 and goles_visita > 0
+    if mercado == "BTTS - No":
+        return not (goles_local > 0 and goles_visita > 0)
+    return None
 
-    state = load_state()
-    state = process_commands(state)
-    state = check_alerts(state)
-    save_state(state)
-    print("Corrida completa. Alertas guardadas en alerts.json")
 
+def resolve_pending_results(state):
+    """
+    Una vez al día (no en cada corrida, para cuidar el cupo de 100
+    solicitudes/día de API-Football), busca el resultado final de los
+    partidos de días anteriores que quedaron pendientes en value_log y
+    calcula si cada apuesta detectada habría acertado o no.
+    """
+    today = date.today().isoformat()
+    if state.get("last_resolve_date") == today:
+        return state  # ya se resolvió hoy, no gastar más solicitudes
 
-if __name__ == "__main__":
-    main()
+    pending_ids = sorted(
+        {
+            entry["fixture_id"]
+            for entry in state["value_log"]
+            if not entry["resuelto"] and entry["fecha"] < today
+        }
+    )
+    if not pending_ids:
+        state["last_resolve_date"] = today
+        return state
+
+    # API-Football permite pedir varios fixtures a la vez separados por "-",
+    # hasta 20 por solicitud, así que se resuelven todos en pocas llamadas.
+    results_by_id = {}
+    for i in range(0, len(pending_ids), 20):
+        chunk = pending_ids[i : i + 20]
+        ids_param = "-".join(str(x) for x in chunk)
+        fixtures = _apifootball_get("fixtures", {"ids": ids_param})
+        for fx in fixtures:
+            try:
+                fid = fx["fixture"]["id"]
+                status = fx["fixture"]["status"]["short"]
+                if status not in ("FT", "AET", "PEN"):
+                    continue  # partido aún no terminado, se reintenta después
+                goles_local = fx["goals"]["home"]
+                goles_visita = fx["goals"]["away"]
+                if goles_local is None or goles_visita is None:
+                    continue
+                results_by_id[fid] = (goles_local, goles_visita)
+            except (KeyError, TypeError):
+                continue
+
+    for entry in state["value_log"]:
+        if entry["resuelto"] or entry["fixture_id"] not in results_by_id:
+            continue
+        goles_local, goles_visita = results_by_id[entry["fixture_id"]]
+        acierto = _acierto_por_mercado(entry["mercado"], goles_local, goles_visita)
+        entry["goles_local"] = goles_local
+        entry["goles_visita"] = goles_visita
+        entry["aci
