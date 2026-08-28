@@ -1,0 +1,1809 @@
+{
+ "teams": {
+  "Arsenal": {
+   "liga": "Premier League",
+   "prom_gf_local": 2.6,
+   "prom_gc_local": 0.5,
+   "prom_gf_visitante": 1.4,
+   "prom_gc_visitante": 0.9
+  },
+  "Aston Villa": {
+   "liga": "Premier League",
+   "prom_gf_local": 1.8,
+   "prom_gc_local": 0.8,
+   "prom_gf_visitante": 1.3636,
+   "prom_gc_visitante": 1.4545
+  },
+  "Bournemouth": {
+   "liga": "Premier League",
+   "prom_gf_local": 1.4545,
+   "prom_gc_local": 1,
+   "prom_gf_visitante": 1.8,
+   "prom_gc_visitante": 2.9
+  },
+  "Brentford": {
+   "liga": "Premier League",
+   "prom_gf_local": 2.0909,
+   "prom_gc_local": 0.9091,
+   "prom_gf_visitante": 1.2,
+   "prom_gc_visitante": 1.8
+  },
+  "Brighton": {
+   "liga": "Premier League",
+   "prom_gf_local": 1.8,
+   "prom_gc_local": 1.1,
+   "prom_gf_visitante": 1.1818,
+   "prom_gc_visitante": 1.5455
+  },
+  "Burnley": {
+   "liga": "Premier League",
+   "prom_gf_local": 0.9091,
+   "prom_gc_local": 1.3636,
+   "prom_gf_visitante": 1.2,
+   "prom_gc_visitante": 2.6
+  },
+  "Chelsea": {
+   "liga": "Premier League",
+   "prom_gf_local": 1.5,
+   "prom_gc_local": 1.1,
+   "prom_gf_visitante": 1.7273,
+   "prom_gc_visitante": 1.1818
+  },
+  "Crystal Palace": {
+   "liga": "Premier League",
+   "prom_gf_local": 0.9091,
+   "prom_gc_local": 1.0909,
+   "prom_gf_visitante": 1.2,
+   "prom_gc_visitante": 1.1
+  },
+  "Everton": {
+   "liga": "Premier League",
+   "prom_gf_local": 1.2727,
+   "prom_gc_local": 1.3636,
+   "prom_gf_visitante": 0.9,
+   "prom_gc_visitante": 1
+  },
+  "Fulham": {
+   "liga": "Premier League",
+   "prom_gf_local": 1.7273,
+   "prom_gc_local": 1.1818,
+   "prom_gf_visitante": 1.1,
+   "prom_gc_visitante": 1.7
+  },
+  "Leeds": {
+   "liga": "Premier League",
+   "prom_gf_local": 1.8,
+   "prom_gc_local": 1.3,
+   "prom_gf_visitante": 1,
+   "prom_gc_visitante": 2.1818
+  },
+  "Liverpool": {
+   "liga": "Premier League",
+   "prom_gf_local": 1.5,
+   "prom_gc_local": 1,
+   "prom_gf_visitante": 1.7,
+   "prom_gc_visitante": 1.8
+  },
+  "Man City": {
+   "liga": "Premier League",
+   "prom_gf_local": 2.4545,
+   "prom_gc_local": 0.7273,
+   "prom_gf_visitante": 1.8,
+   "prom_gc_visitante": 1.1
+  },
+  "Man United": {
+   "liga": "Premier League",
+   "prom_gf_local": 1.8,
+   "prom_gc_local": 1.3,
+   "prom_gf_visitante": 1.6364,
+   "prom_gc_visitante": 1.7273
+  },
+  "Newcastle": {
+   "liga": "Premier League",
+   "prom_gf_local": 2,
+   "prom_gc_local": 1.3636,
+   "prom_gf_visitante": 1,
+   "prom_gc_visitante": 1.2
+  },
+  "Nott'm Forest": {
+   "liga": "Premier League",
+   "prom_gf_local": 1.2,
+   "prom_gc_local": 1.7,
+   "prom_gf_visitante": 0.8182,
+   "prom_gc_visitante": 1.5455
+  },
+  "Sunderland": {
+   "liga": "Premier League",
+   "prom_gf_local": 1.6,
+   "prom_gc_local": 0.8,
+   "prom_gf_visitante": 0.4545,
+   "prom_gc_visitante": 1.2727
+  },
+  "Tottenham": {
+   "liga": "Premier League",
+   "prom_gf_local": 1.2,
+   "prom_gc_local": 1.2,
+   "prom_gf_visitante": 1.6364,
+   "prom_gc_visitante": 1.3636
+  },
+  "West Ham": {
+   "liga": "Premier League",
+   "prom_gf_local": 1.1818,
+   "prom_gc_local": 2.2727,
+   "prom_gf_visitante": 0.9,
+   "prom_gc_visitante": 1.8
+  },
+  "Wolves": {
+   "liga": "Premier League",
+   "prom_gf_local": 1,
+   "prom_gc_local": 2.3,
+   "prom_gf_visitante": 0.4545,
+   "prom_gc_visitante": 1.6364
+  },
+  "Alaves": {
+   "liga": "La Liga",
+   "prom_gf_local": 1.2727,
+   "prom_gc_local": 1,
+   "prom_gf_visitante": 0.5455,
+   "prom_gc_visitante": 1.4545
+  },
+  "Ath Bilbao": {
+   "liga": "La Liga",
+   "prom_gf_local": 1,
+   "prom_gc_local": 1.1,
+   "prom_gf_visitante": 0.9091,
+   "prom_gc_visitante": 1.7273
+  },
+  "Ath Madrid": {
+   "liga": "La Liga",
+   "prom_gf_local": 2.3636,
+   "prom_gc_local": 0.6364,
+   "prom_gf_visitante": 1.0909,
+   "prom_gc_visitante": 0.9091
+  },
+  "Barcelona": {
+   "liga": "La Liga",
+   "prom_gf_local": 3.1,
+   "prom_gc_local": 0.5,
+   "prom_gf_visitante": 2.4167,
+   "prom_gc_visitante": 1.5
+  },
+  "Betis": {
+   "liga": "La Liga",
+   "prom_gf_local": 2,
+   "prom_gc_local": 1.0909,
+   "prom_gf_visitante": 1.2727,
+   "prom_gc_visitante": 1.4545
+  },
+  "Celta": {
+   "liga": "La Liga",
+   "prom_gf_local": 1.4545,
+   "prom_gc_local": 1.1818,
+   "prom_gf_visitante": 1.1818,
+   "prom_gc_visitante": 0.9091
+  },
+  "Elche": {
+   "liga": "La Liga",
+   "prom_gf_local": 1.6667,
+   "prom_gc_local": 1.0833,
+   "prom_gf_visitante": 1,
+   "prom_gc_visitante": 1.9
+  },
+  "Espanol": {
+   "liga": "La Liga",
+   "prom_gf_local": 1.1667,
+   "prom_gc_local": 1.3333,
+   "prom_gf_visitante": 1.2,
+   "prom_gc_visitante": 1.1
+  },
+  "Getafe": {
+   "liga": "La Liga",
+   "prom_gf_local": 0.7273,
+   "prom_gc_local": 0.8182,
+   "prom_gf_visitante": 0.7273,
+   "prom_gc_visitante": 1.6364
+  },
+  "Girona": {
+   "liga": "La Liga",
+   "prom_gf_local": 0.9091,
+   "prom_gc_local": 1.6364,
+   "prom_gf_visitante": 1,
+   "prom_gc_visitante": 1.6364
+  },
+  "Levante": {
+   "liga": "La Liga",
+   "prom_gf_local": 1.1,
+   "prom_gc_local": 2,
+   "prom_gf_visitante": 1.1818,
+   "prom_gc_visitante": 1.2727
+  },
+  "Mallorca": {
+   "liga": "La Liga",
+   "prom_gf_local": 1.4,
+   "prom_gc_local": 1.3,
+   "prom_gf_visitante": 0.9091,
+   "prom_gc_visitante": 1.8182
+  },
+  "Osasuna": {
+   "liga": "La Liga",
+   "prom_gf_local": 1.8182,
+   "prom_gc_local": 1.1818,
+   "prom_gf_visitante": 0.5455,
+   "prom_gc_visitante": 1.2727
+  },
+  "Oviedo": {
+   "liga": "La Liga",
+   "prom_gf_local": 0.3636,
+   "prom_gc_local": 1,
+   "prom_gf_visitante": 0.7273,
+   "prom_gc_visitante": 2.0909
+  },
+  "Real Madrid": {
+   "liga": "La Liga",
+   "prom_gf_local": 2.2727,
+   "prom_gc_local": 0.6364,
+   "prom_gf_visitante": 2,
+   "prom_gc_visitante": 1
+  },
+  "Sevilla": {
+   "liga": "La Liga",
+   "prom_gf_local": 1.4545,
+   "prom_gc_local": 1.5455,
+   "prom_gf_visitante": 1.2,
+   "prom_gc_visitante": 1.6
+  },
+  "Sociedad": {
+   "liga": "La Liga",
+   "prom_gf_local": 1.6364,
+   "prom_gc_local": 1.4545,
+   "prom_gf_visitante": 1.1,
+   "prom_gc_visitante": 1.3
+  },
+  "Valencia": {
+   "liga": "La Liga",
+   "prom_gf_local": 1.3636,
+   "prom_gc_local": 1,
+   "prom_gf_visitante": 0.7273,
+   "prom_gc_visitante": 2.1818
+  },
+  "Vallecano": {
+   "liga": "La Liga",
+   "prom_gf_local": 0.8,
+   "prom_gc_local": 0.9,
+   "prom_gf_visitante": 0.8333,
+   "prom_gc_visitante": 1.75
+  },
+  "Villarreal": {
+   "liga": "La Liga",
+   "prom_gf_local": 2.0909,
+   "prom_gc_local": 0.8182,
+   "prom_gf_visitante": 1.6,
+   "prom_gc_visitante": 1.4
+  },
+  "Augsburg": {
+   "liga": "Bundesliga",
+   "prom_gf_local": 1.2727,
+   "prom_gc_local": 1.7273,
+   "prom_gf_visitante": 1.1111,
+   "prom_gc_visitante": 2
+  },
+  "Bayern Munich": {
+   "liga": "Bundesliga",
+   "prom_gf_local": 4,
+   "prom_gc_local": 0.9,
+   "prom_gf_visitante": 3.4,
+   "prom_gc_visitante": 0.9
+  },
+  "Dortmund": {
+   "liga": "Bundesliga",
+   "prom_gf_local": 2.2,
+   "prom_gc_local": 0.8,
+   "prom_gf_visitante": 1.9,
+   "prom_gc_visitante": 1.1
+  },
+  "Ein Frankfurt": {
+   "liga": "Bundesliga",
+   "prom_gf_local": 1.7,
+   "prom_gc_local": 1.8,
+   "prom_gf_visitante": 2.3,
+   "prom_gc_visitante": 2.7
+  },
+  "FC Koln": {
+   "liga": "Bundesliga",
+   "prom_gf_local": 1.8,
+   "prom_gc_local": 1.5,
+   "prom_gf_visitante": 1.1,
+   "prom_gc_visitante": 1.7
+  },
+  "Freiburg": {
+   "liga": "Bundesliga",
+   "prom_gf_local": 2,
+   "prom_gc_local": 1.2222,
+   "prom_gf_visitante": 1.1818,
+   "prom_gc_visitante": 2
+  },
+  "Hamburg": {
+   "liga": "Bundesliga",
+   "prom_gf_local": 1.5,
+   "prom_gc_local": 1.1,
+   "prom_gf_visitante": 0.4444,
+   "prom_gc_visitante": 2
+  },
+  "Heidenheim": {
+   "liga": "Bundesliga",
+   "prom_gf_local": 1,
+   "prom_gc_local": 2.2,
+   "prom_gf_visitante": 0.9,
+   "prom_gc_visitante": 2.3
+  },
+  "Hoffenheim": {
+   "liga": "Bundesliga",
+   "prom_gf_local": 2.4,
+   "prom_gc_local": 1.3,
+   "prom_gf_visitante": 1.9,
+   "prom_gc_visitante": 1
+  },
+  "Leverkusen": {
+   "liga": "Bundesliga",
+   "prom_gf_local": 2,
+   "prom_gc_local": 1,
+   "prom_gf_visitante": 2,
+   "prom_gc_visitante": 1.7778
+  },
+  "M'gladbach": {
+   "liga": "Bundesliga",
+   "prom_gf_local": 1.2,
+   "prom_gc_local": 2,
+   "prom_gf_visitante": 1.2,
+   "prom_gc_visitante": 1.3
+  },
+  "Mainz": {
+   "liga": "Bundesliga",
+   "prom_gf_local": 1,
+   "prom_gc_local": 1.3,
+   "prom_gf_visitante": 1.3,
+   "prom_gc_visitante": 2
+  },
+  "RB Leipzig": {
+   "liga": "Bundesliga",
+   "prom_gf_local": 2.3,
+   "prom_gc_local": 1.3,
+   "prom_gf_visitante": 1.5,
+   "prom_gc_visitante": 1.4
+  },
+  "St Pauli": {
+   "liga": "Bundesliga",
+   "prom_gf_local": 1,
+   "prom_gc_local": 1.7778,
+   "prom_gf_visitante": 0.8182,
+   "prom_gc_visitante": 1.6364
+  },
+  "Stuttgart": {
+   "liga": "Bundesliga",
+   "prom_gf_local": 1.4,
+   "prom_gc_local": 1.1,
+   "prom_gf_visitante": 2.3,
+   "prom_gc_visitante": 1.5
+  },
+  "Union Berlin": {
+   "liga": "Bundesliga",
+   "prom_gf_local": 1.5,
+   "prom_gc_local": 1.6,
+   "prom_gf_visitante": 1,
+   "prom_gc_visitante": 1.7
+  },
+  "Werder Bremen": {
+   "liga": "Bundesliga",
+   "prom_gf_local": 1.2,
+   "prom_gc_local": 1.8,
+   "prom_gf_visitante": 1,
+   "prom_gc_visitante": 2
+  },
+  "Wolfsburg": {
+   "liga": "Bundesliga",
+   "prom_gf_local": 1.6,
+   "prom_gc_local": 2.1,
+   "prom_gf_visitante": 1.2,
+   "prom_gc_visitante": 2.1
+  },
+  "Atalanta": {
+   "liga": "Serie A",
+   "prom_gf_local": 1.3158,
+   "prom_gc_local": 0.7895,
+   "prom_gf_visitante": 1.3684,
+   "prom_gc_visitante": 1.1053
+  },
+  "Bologna": {
+   "liga": "Serie A",
+   "prom_gf_local": 1,
+   "prom_gc_local": 1.2105,
+   "prom_gf_visitante": 1.5789,
+   "prom_gc_visitante": 1.2105
+  },
+  "Cagliari": {
+   "liga": "Serie A",
+   "prom_gf_local": 1.1579,
+   "prom_gc_local": 1.2105,
+   "prom_gf_visitante": 0.9474,
+   "prom_gc_visitante": 1.5789
+  },
+  "Como": {
+   "liga": "Serie A",
+   "prom_gf_local": 1.8421,
+   "prom_gc_local": 0.7895,
+   "prom_gf_visitante": 1.5789,
+   "prom_gc_visitante": 0.7368
+  },
+  "Cremonese": {
+   "liga": "Serie A",
+   "prom_gf_local": 0.9474,
+   "prom_gc_local": 1.5263,
+   "prom_gf_visitante": 0.7368,
+   "prom_gc_visitante": 1.4737
+  },
+  "Fiorentina": {
+   "liga": "Serie A",
+   "prom_gf_local": 1.1053,
+   "prom_gc_local": 1.1053,
+   "prom_gf_visitante": 1.0526,
+   "prom_gc_visitante": 1.5263
+  },
+  "Genoa": {
+   "liga": "Serie A",
+   "prom_gf_local": 1.1579,
+   "prom_gc_local": 1.3684,
+   "prom_gf_visitante": 1,
+   "prom_gc_visitante": 1.3158
+  },
+  "Inter": {
+   "liga": "Serie A",
+   "prom_gf_local": 2.6316,
+   "prom_gc_local": 0.8421,
+   "prom_gf_visitante": 2.0526,
+   "prom_gc_visitante": 1
+  },
+  "Juventus": {
+   "liga": "Serie A",
+   "prom_gf_local": 1.8421,
+   "prom_gc_local": 0.8421,
+   "prom_gf_visitante": 1.3684,
+   "prom_gc_visitante": 0.9474
+  },
+  "Lazio": {
+   "liga": "Serie A",
+   "prom_gf_local": 1.4211,
+   "prom_gc_local": 1.3158,
+   "prom_gf_visitante": 0.7368,
+   "prom_gc_visitante": 0.7895
+  },
+  "Lecce": {
+   "liga": "Serie A",
+   "prom_gf_local": 0.6842,
+   "prom_gc_local": 1.2632,
+   "prom_gf_visitante": 0.7895,
+   "prom_gc_visitante": 1.3684
+  },
+  "Milan": {
+   "liga": "Serie A",
+   "prom_gf_local": 1.3158,
+   "prom_gc_local": 1.1053,
+   "prom_gf_visitante": 1.4737,
+   "prom_gc_visitante": 0.7368
+  },
+  "Napoli": {
+   "liga": "Serie A",
+   "prom_gf_local": 1.7368,
+   "prom_gc_local": 0.9474,
+   "prom_gf_visitante": 1.3158,
+   "prom_gc_visitante": 0.9474
+  },
+  "Parma": {
+   "liga": "Serie A",
+   "prom_gf_local": 0.8421,
+   "prom_gc_local": 1.3158,
+   "prom_gf_visitante": 0.6316,
+   "prom_gc_visitante": 1.1053
+  },
+  "Pisa": {
+   "liga": "Serie A",
+   "prom_gf_local": 0.4737,
+   "prom_gc_local": 1.3684,
+   "prom_gf_visitante": 0.8947,
+   "prom_gc_visitante": 2.3684
+  },
+  "Roma": {
+   "liga": "Serie A",
+   "prom_gf_local": 1.7368,
+   "prom_gc_local": 0.5263,
+   "prom_gf_visitante": 1.3684,
+   "prom_gc_visitante": 1.1053
+  },
+  "Sassuolo": {
+   "liga": "Serie A",
+   "prom_gf_local": 1.3158,
+   "prom_gc_local": 1.3684,
+   "prom_gf_visitante": 1.1053,
+   "prom_gc_visitante": 1.2632
+  },
+  "Torino": {
+   "liga": "Serie A",
+   "prom_gf_local": 1.4211,
+   "prom_gc_local": 1.5263,
+   "prom_gf_visitante": 0.8947,
+   "prom_gc_visitante": 1.7895
+  },
+  "Udinese": {
+   "liga": "Serie A",
+   "prom_gf_local": 0.9474,
+   "prom_gc_local": 1.1053,
+   "prom_gf_visitante": 1.4211,
+   "prom_gc_visitante": 1.4211
+  },
+  "Verona": {
+   "liga": "Serie A",
+   "prom_gf_local": 0.6316,
+   "prom_gc_local": 1.4737,
+   "prom_gf_visitante": 0.6842,
+   "prom_gc_visitante": 1.7368
+  },
+  "Angers": {
+   "liga": "Ligue 1",
+   "prom_gf_local": 1.0588,
+   "prom_gc_local": 1.1765,
+   "prom_gf_visitante": 0.6471,
+   "prom_gc_visitante": 1.6471
+  },
+  "Auxerre": {
+   "liga": "Ligue 1",
+   "prom_gf_local": 1.0588,
+   "prom_gc_local": 1,
+   "prom_gf_visitante": 0.9412,
+   "prom_gc_visitante": 1.5882
+  },
+  "Brest": {
+   "liga": "Ligue 1",
+   "prom_gf_local": 1.6471,
+   "prom_gc_local": 1.3529,
+   "prom_gf_visitante": 0.8824,
+   "prom_gc_visitante": 1.8824
+  },
+  "Le Havre": {
+   "liga": "Ligue 1",
+   "prom_gf_local": 1.1765,
+   "prom_gc_local": 1.0588,
+   "prom_gf_visitante": 0.7059,
+   "prom_gc_visitante": 1.5294
+  },
+  "Lens": {
+   "liga": "Ligue 1",
+   "prom_gf_local": 2.0588,
+   "prom_gc_local": 0.7647,
+   "prom_gf_visitante": 1.8235,
+   "prom_gc_visitante": 1.2941
+  },
+  "Lille": {
+   "liga": "Ligue 1",
+   "prom_gf_local": 1.4118,
+   "prom_gc_local": 1,
+   "prom_gf_visitante": 1.6471,
+   "prom_gc_visitante": 1.1765
+  },
+  "Lorient": {
+   "liga": "Ligue 1",
+   "prom_gf_local": 1.8235,
+   "prom_gc_local": 1.4706,
+   "prom_gf_visitante": 1,
+   "prom_gc_visitante": 1.5294
+  },
+  "Lyon": {
+   "liga": "Ligue 1",
+   "prom_gf_local": 1.7647,
+   "prom_gc_local": 1.0588,
+   "prom_gf_visitante": 1.3529,
+   "prom_gc_visitante": 1.2941
+  },
+  "Marseille": {
+   "liga": "Ligue 1",
+   "prom_gf_local": 2.4118,
+   "prom_gc_local": 1.1765,
+   "prom_gf_visitante": 1.2941,
+   "prom_gc_visitante": 1.4706
+  },
+  "Metz": {
+   "liga": "Ligue 1",
+   "prom_gf_local": 0.8824,
+   "prom_gc_local": 1.8824,
+   "prom_gf_visitante": 1,
+   "prom_gc_visitante": 2.5882
+  },
+  "Monaco": {
+   "liga": "Ligue 1",
+   "prom_gf_local": 1.9412,
+   "prom_gc_local": 1.3529,
+   "prom_gf_visitante": 1.5882,
+   "prom_gc_visitante": 1.8235
+  },
+  "Nantes": {
+   "liga": "Ligue 1",
+   "prom_gf_local": 1.0588,
+   "prom_gc_local": 1.5882,
+   "prom_gf_visitante": 0.6471,
+   "prom_gc_visitante": 1.4706
+  },
+  "Nice": {
+   "liga": "Ligue 1",
+   "prom_gf_local": 1.1176,
+   "prom_gc_local": 1.5882,
+   "prom_gf_visitante": 1.0588,
+   "prom_gc_visitante": 1.9412
+  },
+  "Paris FC": {
+   "liga": "Ligue 1",
+   "prom_gf_local": 1.6471,
+   "prom_gc_local": 1.5882,
+   "prom_gf_visitante": 1.1176,
+   "prom_gc_visitante": 1.3529
+  },
+  "Paris SG": {
+   "liga": "Ligue 1",
+   "prom_gf_local": 2.4118,
+   "prom_gc_local": 0.7059,
+   "prom_gf_visitante": 1.9412,
+   "prom_gc_visitante": 1
+  },
+  "Rennes": {
+   "liga": "Ligue 1",
+   "prom_gf_local": 1.7647,
+   "prom_gc_local": 1,
+   "prom_gf_visitante": 1.7059,
+   "prom_gc_visitante": 1.9412
+  },
+  "Strasbourg": {
+   "liga": "Ligue 1",
+   "prom_gf_local": 1.7647,
+   "prom_gc_local": 1.1176,
+   "prom_gf_visitante": 1.6471,
+   "prom_gc_visitante": 1.6471
+  },
+  "Toulouse": {
+   "liga": "Ligue 1",
+   "prom_gf_local": 1.4706,
+   "prom_gc_local": 1.4118,
+   "prom_gf_visitante": 1.2941,
+   "prom_gc_visitante": 1.2941
+  },
+  "AZ Alkmaar": {
+   "liga": "Eredivisie (Holanda)",
+   "prom_gf_local": 2.2941,
+   "prom_gc_local": 1.5294,
+   "prom_gf_visitante": 1.1176,
+   "prom_gc_visitante": 1.4706
+  },
+  "Ajax": {
+   "liga": "Eredivisie (Holanda)",
+   "prom_gf_local": 1.8824,
+   "prom_gc_local": 1,
+   "prom_gf_visitante": 1.7647,
+   "prom_gc_visitante": 1.4118
+  },
+  "Excelsior": {
+   "liga": "Eredivisie (Holanda)",
+   "prom_gf_local": 1.1765,
+   "prom_gc_local": 1.2941,
+   "prom_gf_visitante": 1.3529,
+   "prom_gc_visitante": 2
+  },
+  "Feyenoord": {
+   "liga": "Eredivisie (Holanda)",
+   "prom_gf_local": 2.2941,
+   "prom_gc_local": 1.3529,
+   "prom_gf_visitante": 1.8235,
+   "prom_gc_visitante": 1.2353
+  },
+  "For Sittard": {
+   "liga": "Eredivisie (Holanda)",
+   "prom_gf_local": 1.6471,
+   "prom_gc_local": 1.7059,
+   "prom_gf_visitante": 1.2353,
+   "prom_gc_visitante": 2
+  },
+  "Go Ahead Eagles": {
+   "liga": "Eredivisie (Holanda)",
+   "prom_gf_local": 2,
+   "prom_gc_local": 1.4118,
+   "prom_gf_visitante": 1.1765,
+   "prom_gc_visitante": 1.7059
+  },
+  "Groningen": {
+   "liga": "Eredivisie (Holanda)",
+   "prom_gf_local": 1.5882,
+   "prom_gc_local": 1.0588,
+   "prom_gf_visitante": 1.2941,
+   "prom_gc_visitante": 1.5882
+  },
+  "Heerenveen": {
+   "liga": "Eredivisie (Holanda)",
+   "prom_gf_local": 1.9412,
+   "prom_gc_local": 1.4118,
+   "prom_gf_visitante": 1.4118,
+   "prom_gc_visitante": 1.7059
+  },
+  "Heracles": {
+   "liga": "Eredivisie (Holanda)",
+   "prom_gf_local": 1.3529,
+   "prom_gc_local": 2.1176,
+   "prom_gf_visitante": 0.7059,
+   "prom_gc_visitante": 2.8824
+  },
+  "NAC Breda": {
+   "liga": "Eredivisie (Holanda)",
+   "prom_gf_local": 1.1765,
+   "prom_gc_local": 1.3529,
+   "prom_gf_visitante": 0.8824,
+   "prom_gc_visitante": 2.0588
+  },
+  "Nijmegen": {
+   "liga": "Eredivisie (Holanda)",
+   "prom_gf_local": 2.4118,
+   "prom_gc_local": 1.4706,
+   "prom_gf_visitante": 2.1176,
+   "prom_gc_visitante": 1.6471
+  },
+  "PSV Eindhoven": {
+   "liga": "Eredivisie (Holanda)",
+   "prom_gf_local": 3.4118,
+   "prom_gc_local": 1.5294,
+   "prom_gf_visitante": 2.5294,
+   "prom_gc_visitante": 1.1176
+  },
+  "Sparta Rotterdam": {
+   "liga": "Eredivisie (Holanda)",
+   "prom_gf_local": 1.2353,
+   "prom_gc_local": 1.5882,
+   "prom_gf_visitante": 1.1176,
+   "prom_gc_visitante": 2.0588
+  },
+  "Telstar": {
+   "liga": "Eredivisie (Holanda)",
+   "prom_gf_local": 1.8235,
+   "prom_gc_local": 1.6471,
+   "prom_gf_visitante": 1.0588,
+   "prom_gc_visitante": 1.5882
+  },
+  "Twente": {
+   "liga": "Eredivisie (Holanda)",
+   "prom_gf_local": 1.7059,
+   "prom_gc_local": 0.9412,
+   "prom_gf_visitante": 1.7647,
+   "prom_gc_visitante": 1.4118
+  },
+  "Utrecht": {
+   "liga": "Eredivisie (Holanda)",
+   "prom_gf_local": 1.8235,
+   "prom_gc_local": 0.7647,
+   "prom_gf_visitante": 1.4118,
+   "prom_gc_visitante": 1.7059
+  },
+  "Volendam": {
+   "liga": "Eredivisie (Holanda)",
+   "prom_gf_local": 1.4118,
+   "prom_gc_local": 1.3529,
+   "prom_gf_visitante": 0.6471,
+   "prom_gc_visitante": 1.8824
+  },
+  "Zwolle": {
+   "liga": "Eredivisie (Holanda)",
+   "prom_gf_local": 1.2353,
+   "prom_gc_local": 1.2353,
+   "prom_gf_visitante": 1.3529,
+   "prom_gc_visitante": 2.9412
+  },
+  "Anderlecht": {
+   "liga": "Jupiler Pro League (Bélgica)",
+   "prom_gf_local": 1.75,
+   "prom_gc_local": 1.2,
+   "prom_gf_visitante": 1.2,
+   "prom_gc_visitante": 1.9
+  },
+  "Antwerp": {
+   "liga": "Jupiler Pro League (Bélgica)",
+   "prom_gf_local": 1.3,
+   "prom_gc_local": 1.3,
+   "prom_gf_visitante": 0.85,
+   "prom_gc_visitante": 1.1
+  },
+  "Cercle Brugge": {
+   "liga": "Jupiler Pro League (Bélgica)",
+   "prom_gf_local": 1.4444,
+   "prom_gc_local": 1.9444,
+   "prom_gf_visitante": 1.5,
+   "prom_gc_visitante": 1.2778
+  },
+  "Charleroi": {
+   "liga": "Jupiler Pro League (Bélgica)",
+   "prom_gf_local": 1.3,
+   "prom_gc_local": 1.3,
+   "prom_gf_visitante": 1.2,
+   "prom_gc_visitante": 1.2
+  },
+  "Club Brugge": {
+   "liga": "Jupiler Pro League (Bélgica)",
+   "prom_gf_local": 2.8,
+   "prom_gc_local": 1.1,
+   "prom_gf_visitante": 1.75,
+   "prom_gc_visitante": 1.15
+  },
+  "Dender": {
+   "liga": "Jupiler Pro League (Bélgica)",
+   "prom_gf_local": 0.8235,
+   "prom_gc_local": 2,
+   "prom_gf_visitante": 0.8333,
+   "prom_gc_visitante": 1.5
+  },
+  "Genk": {
+   "liga": "Jupiler Pro League (Bélgica)",
+   "prom_gf_local": 1.3,
+   "prom_gc_local": 1.1,
+   "prom_gf_visitante": 1.55,
+   "prom_gc_visitante": 1.55
+  },
+  "Gent": {
+   "liga": "Jupiler Pro League (Bélgica)",
+   "prom_gf_local": 1.45,
+   "prom_gc_local": 1.05,
+   "prom_gf_visitante": 1.2,
+   "prom_gc_visitante": 1.8
+  },
+  "Mechelen": {
+   "liga": "Jupiler Pro League (Bélgica)",
+   "prom_gf_local": 1.2,
+   "prom_gc_local": 1.25,
+   "prom_gf_visitante": 1.2,
+   "prom_gc_visitante": 1.8
+  },
+  "Oud-Heverlee Leuven": {
+   "liga": "Jupiler Pro League (Bélgica)",
+   "prom_gf_local": 1.1,
+   "prom_gc_local": 1.35,
+   "prom_gf_visitante": 0.95,
+   "prom_gc_visitante": 1.65
+  },
+  "RAAL La Louviere": {
+   "liga": "Jupiler Pro League (Bélgica)",
+   "prom_gf_local": 0.8889,
+   "prom_gc_local": 1.1111,
+   "prom_gf_visitante": 1.0588,
+   "prom_gc_visitante": 1.6471
+  },
+  "St Truiden": {
+   "liga": "Jupiler Pro League (Bélgica)",
+   "prom_gf_local": 1.6,
+   "prom_gc_local": 1.15,
+   "prom_gf_visitante": 1.45,
+   "prom_gc_visitante": 1.15
+  },
+  "St. Gilloise": {
+   "liga": "Jupiler Pro League (Bélgica)",
+   "prom_gf_local": 2.15,
+   "prom_gc_local": 0.35,
+   "prom_gf_visitante": 1.15,
+   "prom_gc_visitante": 1
+  },
+  "Standard": {
+   "liga": "Jupiler Pro League (Bélgica)",
+   "prom_gf_local": 0.9,
+   "prom_gc_local": 1.25,
+   "prom_gf_visitante": 1.3,
+   "prom_gc_visitante": 1.05
+  },
+  "Waregem": {
+   "liga": "Jupiler Pro League (Bélgica)",
+   "prom_gf_local": 1.5,
+   "prom_gc_local": 1.2222,
+   "prom_gf_visitante": 1.4444,
+   "prom_gc_visitante": 1.7222
+  },
+  "Westerlo": {
+   "liga": "Jupiler Pro League (Bélgica)",
+   "prom_gf_local": 1.3,
+   "prom_gc_local": 1.35,
+   "prom_gf_visitante": 1.2,
+   "prom_gc_visitante": 1.5
+  },
+  "Racing Santander": {
+   "liga": "Segunda División (España)",
+   "prom_gf_local": 2.619,
+   "prom_gc_local": 1.381,
+   "prom_gf_visitante": 1.6667,
+   "prom_gc_visitante": 1.5238
+  },
+  "UD Almería": {
+   "liga": "Segunda División (España)",
+   "prom_gf_local": 2.4762,
+   "prom_gc_local": 1.4286,
+   "prom_gf_visitante": 1.381,
+   "prom_gc_visitante": 1.5714
+  },
+  "SD Eibar": {
+   "liga": "Segunda División (España)",
+   "prom_gf_local": 1.7619,
+   "prom_gc_local": 0.8095,
+   "prom_gf_visitante": 0.7143,
+   "prom_gc_visitante": 1.0952
+  },
+  "Málaga CF": {
+   "liga": "Segunda División (España)",
+   "prom_gf_local": 2,
+   "prom_gc_local": 1.1429,
+   "prom_gf_visitante": 1.5714,
+   "prom_gc_visitante": 1.3333
+  },
+  "CD Castellón": {
+   "liga": "Segunda División (España)",
+   "prom_gf_local": 2,
+   "prom_gc_local": 1.1905,
+   "prom_gf_visitante": 1.3333,
+   "prom_gc_visitante": 1.2381
+  },
+  "UD Las Palmas": {
+   "liga": "Segunda División (España)",
+   "prom_gf_local": 1.5714,
+   "prom_gc_local": 0.6667,
+   "prom_gf_visitante": 1.1429,
+   "prom_gc_visitante": 1.2381
+  },
+  "AD Ceuta FC": {
+   "liga": "Segunda División (España)",
+   "prom_gf_local": 1.3333,
+   "prom_gc_local": 1.0952,
+   "prom_gf_visitante": 1.0952,
+   "prom_gc_visitante": 1.9048
+  },
+  "Sporting Gijón": {
+   "liga": "Segunda División (España)",
+   "prom_gf_local": 1.6667,
+   "prom_gc_local": 1.0476,
+   "prom_gf_visitante": 1.1905,
+   "prom_gc_visitante": 1.5238
+  },
+  "Burgos CF": {
+   "liga": "Segunda División (España)",
+   "prom_gf_local": 1.1905,
+   "prom_gc_local": 0.5714,
+   "prom_gf_visitante": 1.0952,
+   "prom_gc_visitante": 1
+  },
+  "Deportivo La Coruña": {
+   "liga": "Segunda División (España)",
+   "prom_gf_local": 1.4762,
+   "prom_gc_local": 1.0476,
+   "prom_gf_visitante": 1.619,
+   "prom_gc_visitante": 1.0476
+  },
+  "Córdoba CF": {
+   "liga": "Segunda División (España)",
+   "prom_gf_local": 1.3333,
+   "prom_gc_local": 1.3333,
+   "prom_gf_visitante": 1.381,
+   "prom_gc_visitante": 1.5714
+  },
+  "Albacete": {
+   "liga": "Segunda División (España)",
+   "prom_gf_local": 1.4286,
+   "prom_gc_local": 1.5238,
+   "prom_gf_visitante": 1.2381,
+   "prom_gc_visitante": 1.0952
+  },
+  "FC Andorra": {
+   "liga": "Segunda División (España)",
+   "prom_gf_local": 1.4762,
+   "prom_gc_local": 1.1905,
+   "prom_gf_visitante": 1.4762,
+   "prom_gc_visitante": 1.381
+  },
+  "Real Sociedad B": {
+   "liga": "Segunda División (España)",
+   "prom_gf_local": 1.381,
+   "prom_gc_local": 1.2857,
+   "prom_gf_visitante": 1.0952,
+   "prom_gc_visitante": 1.619
+  },
+  "Real Valladolid": {
+   "liga": "Segunda División (España)",
+   "prom_gf_local": 1.0952,
+   "prom_gc_local": 1,
+   "prom_gf_visitante": 1,
+   "prom_gc_visitante": 1.7143
+  },
+  "SD Huesca": {
+   "liga": "Segunda División (España)",
+   "prom_gf_local": 1.0952,
+   "prom_gc_local": 1.1429,
+   "prom_gf_visitante": 0.8571,
+   "prom_gc_visitante": 1.8571
+  },
+  "CD Leganés": {
+   "liga": "Segunda División (España)",
+   "prom_gf_local": 1.0952,
+   "prom_gc_local": 1.0952,
+   "prom_gf_visitante": 0.9524,
+   "prom_gc_visitante": 1.3333
+  },
+  "Granada CF": {
+   "liga": "Segunda División (España)",
+   "prom_gf_local": 1.3333,
+   "prom_gc_local": 1.1905,
+   "prom_gf_visitante": 1.0476,
+   "prom_gc_visitante": 1.4762
+  },
+  "Cádiz CF": {
+   "liga": "Segunda División (España)",
+   "prom_gf_local": 1,
+   "prom_gc_local": 1.3333,
+   "prom_gf_visitante": 0.9524,
+   "prom_gc_visitante": 1.5714
+  },
+  "CD Mirandés": {
+   "liga": "Segunda División (España)",
+   "prom_gf_local": 1.0476,
+   "prom_gc_local": 1.4762,
+   "prom_gf_visitante": 1.1905,
+   "prom_gc_visitante": 1.8095
+  },
+  "Real Zaragoza": {
+   "liga": "Segunda División (España)",
+   "prom_gf_local": 0.8571,
+   "prom_gc_local": 1.4762,
+   "prom_gf_visitante": 0.8095,
+   "prom_gc_visitante": 1.3333
+  },
+  "Cultural Leonesa": {
+   "liga": "Segunda División (España)",
+   "prom_gf_local": 0.7143,
+   "prom_gc_local": 1.5238,
+   "prom_gf_visitante": 1.1429,
+   "prom_gc_visitante": 1.7143
+  },
+  "FC Schalke 04": {
+   "liga": "2. Bundesliga (Alemania)",
+   "prom_gf_local": 1.7059,
+   "prom_gc_local": 0.8235,
+   "prom_gf_visitante": 1.2353,
+   "prom_gc_visitante": 1
+  },
+  "SV 07 Elversberg": {
+   "liga": "2. Bundesliga (Alemania)",
+   "prom_gf_local": 2.0588,
+   "prom_gc_local": 0.8235,
+   "prom_gf_visitante": 1.7059,
+   "prom_gc_visitante": 1.4706
+  },
+  "SV Darmstadt 98": {
+   "liga": "2. Bundesliga (Alemania)",
+   "prom_gf_local": 1.8824,
+   "prom_gc_local": 1,
+   "prom_gf_visitante": 1.4706,
+   "prom_gc_visitante": 1.6471
+  },
+  "1. FC Kaiserslautern": {
+   "liga": "2. Bundesliga (Alemania)",
+   "prom_gf_local": 2.0588,
+   "prom_gc_local": 1.1176,
+   "prom_gf_visitante": 1,
+   "prom_gc_visitante": 1.6471
+  },
+  "SC Paderborn 07": {
+   "liga": "2. Bundesliga (Alemania)",
+   "prom_gf_local": 2.0588,
+   "prom_gc_local": 1.5882,
+   "prom_gf_visitante": 1.4118,
+   "prom_gc_visitante": 1.0588
+  },
+  "1. FC Nuremberg": {
+   "liga": "2. Bundesliga (Alemania)",
+   "prom_gf_local": 1.5882,
+   "prom_gc_local": 1,
+   "prom_gf_visitante": 1.1765,
+   "prom_gc_visitante": 1.6471
+  },
+  "Karlsruher SC": {
+   "liga": "2. Bundesliga (Alemania)",
+   "prom_gf_local": 2,
+   "prom_gc_local": 1.7059,
+   "prom_gf_visitante": 1.1176,
+   "prom_gc_visitante": 2.0588
+  },
+  "VfL Bochum": {
+   "liga": "2. Bundesliga (Alemania)",
+   "prom_gf_local": 1.7647,
+   "prom_gc_local": 1.2353,
+   "prom_gf_visitante": 1.1176,
+   "prom_gc_visitante": 1.5294
+  },
+  "Hannover 96": {
+   "liga": "2. Bundesliga (Alemania)",
+   "prom_gf_local": 1.5882,
+   "prom_gc_local": 1.3529,
+   "prom_gf_visitante": 1.9412,
+   "prom_gc_visitante": 1.2353
+  },
+  "Arminia Bielefeld": {
+   "liga": "2. Bundesliga (Alemania)",
+   "prom_gf_local": 2,
+   "prom_gc_local": 1.2353,
+   "prom_gf_visitante": 1.1176,
+   "prom_gc_visitante": 1.7647
+  },
+  "Dynamo Dresden": {
+   "liga": "2. Bundesliga (Alemania)",
+   "prom_gf_local": 1.7647,
+   "prom_gc_local": 1.2941,
+   "prom_gf_visitante": 1.4118,
+   "prom_gc_visitante": 1.8235
+  },
+  "Fortuna Düsseldorf": {
+   "liga": "2. Bundesliga (Alemania)",
+   "prom_gf_local": 1.2941,
+   "prom_gc_local": 1.5294,
+   "prom_gf_visitante": 0.6471,
+   "prom_gc_visitante": 1.5882
+  },
+  "Hertha BSC": {
+   "liga": "2. Bundesliga (Alemania)",
+   "prom_gf_local": 0.9412,
+   "prom_gc_local": 1.0588,
+   "prom_gf_visitante": 1.8235,
+   "prom_gc_visitante": 1.5294
+  },
+  "SpVgg Greuther Fürth": {
+   "liga": "2. Bundesliga (Alemania)",
+   "prom_gf_local": 1.5294,
+   "prom_gc_local": 1.8235,
+   "prom_gf_visitante": 1.3529,
+   "prom_gc_visitante": 2.1765
+  },
+  "Eintracht Braunschweig": {
+   "liga": "2. Bundesliga (Alemania)",
+   "prom_gf_local": 1.1765,
+   "prom_gc_local": 1.5294,
+   "prom_gf_visitante": 0.9412,
+   "prom_gc_visitante": 1.6471
+  },
+  "Holstein Kiel": {
+   "liga": "2. Bundesliga (Alemania)",
+   "prom_gf_local": 1.2941,
+   "prom_gc_local": 1.1176,
+   "prom_gf_visitante": 1.2941,
+   "prom_gc_visitante": 1.7059
+  },
+  "Preußen Münster": {
+   "liga": "2. Bundesliga (Alemania)",
+   "prom_gf_local": 1.2941,
+   "prom_gc_local": 1.5294,
+   "prom_gf_visitante": 0.9412,
+   "prom_gc_visitante": 2.0588
+  },
+  "1. FC Magdeburg": {
+   "liga": "2. Bundesliga (Alemania)",
+   "prom_gf_local": 1.3529,
+   "prom_gc_local": 1.6471,
+   "prom_gf_visitante": 1.7059,
+   "prom_gc_visitante": 1.7647
+  },
+  "FC Porto": {
+   "liga": "Primeira Liga (Portugal)",
+   "prom_gf_local": 1.9412,
+   "prom_gc_local": 0.3529,
+   "prom_gf_visitante": 1.9412,
+   "prom_gc_visitante": 0.7059
+  },
+  "Sporting CP": {
+   "liga": "Primeira Liga (Portugal)",
+   "prom_gf_local": 3,
+   "prom_gc_local": 0.6471,
+   "prom_gf_visitante": 2.2353,
+   "prom_gc_visitante": 0.7647
+  },
+  "SL Benfica": {
+   "liga": "Primeira Liga (Portugal)",
+   "prom_gf_local": 2.4118,
+   "prom_gc_local": 0.7647,
+   "prom_gf_visitante": 1.9412,
+   "prom_gc_visitante": 0.7059
+  },
+  "S.C. Braga": {
+   "liga": "Primeira Liga (Portugal)",
+   "prom_gf_local": 2,
+   "prom_gc_local": 1.0588,
+   "prom_gf_visitante": 1.7647,
+   "prom_gc_visitante": 1.0588
+  },
+  "FC Famalicão": {
+   "liga": "Primeira Liga (Portugal)",
+   "prom_gf_local": 1.5882,
+   "prom_gc_local": 0.7059,
+   "prom_gf_visitante": 0.8824,
+   "prom_gc_visitante": 1
+  },
+  "Gil Vicente": {
+   "liga": "Primeira Liga (Portugal)",
+   "prom_gf_local": 1.6471,
+   "prom_gc_local": 1,
+   "prom_gf_visitante": 1.1176,
+   "prom_gc_visitante": 1.2353
+  },
+  "Vitória Guimarães": {
+   "liga": "Primeira Liga (Portugal)",
+   "prom_gf_local": 1.5294,
+   "prom_gc_local": 1.1176,
+   "prom_gf_visitante": 0.7647,
+   "prom_gc_visitante": 1.8824
+  },
+  "Moreirense FC": {
+   "liga": "Primeira Liga (Portugal)",
+   "prom_gf_local": 1.1765,
+   "prom_gc_local": 1.2353,
+   "prom_gf_visitante": 1,
+   "prom_gc_visitante": 1.6471
+  },
+  "FC Alverca": {
+   "liga": "Primeira Liga (Portugal)",
+   "prom_gf_local": 1.0588,
+   "prom_gc_local": 1.3529,
+   "prom_gf_visitante": 1,
+   "prom_gc_visitante": 1.7059
+  },
+  "FC Arouca": {
+   "liga": "Primeira Liga (Portugal)",
+   "prom_gf_local": 1.5882,
+   "prom_gc_local": 1.7647,
+   "prom_gf_visitante": 1.1765,
+   "prom_gc_visitante": 2
+  },
+  "GD Estoril": {
+   "liga": "Primeira Liga (Portugal)",
+   "prom_gf_local": 1.7059,
+   "prom_gc_local": 1.5294,
+   "prom_gf_visitante": 1.4706,
+   "prom_gc_visitante": 1.8235
+  },
+  "CD Santa Clara": {
+   "liga": "Primeira Liga (Portugal)",
+   "prom_gf_local": 1,
+   "prom_gc_local": 1,
+   "prom_gf_visitante": 0.8824,
+   "prom_gc_visitante": 1.4118
+  },
+  "CD Nacional": {
+   "liga": "Primeira Liga (Portugal)",
+   "prom_gf_local": 1.3529,
+   "prom_gc_local": 1.3529,
+   "prom_gf_visitante": 0.8235,
+   "prom_gc_visitante": 1.2941
+  },
+  "Estrela Amadora": {
+   "liga": "Primeira Liga (Portugal)",
+   "prom_gf_local": 1.2353,
+   "prom_gc_local": 1.4118,
+   "prom_gf_visitante": 1,
+   "prom_gc_visitante": 1.8824
+  },
+  "Casa Pia AC": {
+   "liga": "Primeira Liga (Portugal)",
+   "prom_gf_local": 1.0588,
+   "prom_gc_local": 1.5294,
+   "prom_gf_visitante": 0.7647,
+   "prom_gc_visitante": 1.8235
+  },
+  "Rio Ave FC": {
+   "liga": "Primeira Liga (Portugal)",
+   "prom_gf_local": 1,
+   "prom_gc_local": 1.7059,
+   "prom_gf_visitante": 1.0588,
+   "prom_gc_visitante": 1.6471
+  },
+  "CD Tondela": {
+   "liga": "Primeira Liga (Portugal)",
+   "prom_gf_local": 0.7647,
+   "prom_gc_local": 1.2353,
+   "prom_gf_visitante": 0.8235,
+   "prom_gc_visitante": 2
+  },
+  "AVS": {
+   "liga": "Primeira Liga (Portugal)",
+   "prom_gf_local": 0.8824,
+   "prom_gc_local": 1.5882,
+   "prom_gf_visitante": 0.7059,
+   "prom_gc_visitante": 2.3529
+  },
+  "Galatasaray": {
+   "liga": "Süper Lig (Turquía)",
+   "prom_gf_local": 2.7059,
+   "prom_gc_local": 0.8235,
+   "prom_gf_visitante": 1.8235,
+   "prom_gc_visitante": 0.9412
+  },
+  "Fenerbahçe": {
+   "liga": "Süper Lig (Turquía)",
+   "prom_gf_local": 2.3529,
+   "prom_gc_local": 1.1176,
+   "prom_gf_visitante": 2.1765,
+   "prom_gc_visitante": 1.0588
+  },
+  "Trabzonspor": {
+   "liga": "Süper Lig (Turquía)",
+   "prom_gf_local": 1.7059,
+   "prom_gc_local": 1.0588,
+   "prom_gf_visitante": 1.8824,
+   "prom_gc_visitante": 1.2353
+  },
+  "Beşiktaş": {
+   "liga": "Süper Lig (Turquía)",
+   "prom_gf_local": 1.7647,
+   "prom_gc_local": 1.1765,
+   "prom_gf_visitante": 1.7059,
+   "prom_gc_visitante": 1.1765
+  },
+  "İstanbul Başakşehir": {
+   "liga": "Süper Lig (Turquía)",
+   "prom_gf_local": 1.9412,
+   "prom_gc_local": 1,
+   "prom_gf_visitante": 1.4706,
+   "prom_gc_visitante": 1.0588
+  },
+  "Göztepe": {
+   "liga": "Süper Lig (Turquía)",
+   "prom_gf_local": 1.4118,
+   "prom_gc_local": 0.8235,
+   "prom_gf_visitante": 1.0588,
+   "prom_gc_visitante": 1.0588
+  },
+  "Samsunspor": {
+   "liga": "Süper Lig (Turquía)",
+   "prom_gf_local": 1.2941,
+   "prom_gc_local": 1,
+   "prom_gf_visitante": 1.4118,
+   "prom_gc_visitante": 1.6471
+  },
+  "Çaykur Rizespor": {
+   "liga": "Süper Lig (Turquía)",
+   "prom_gf_local": 1.4118,
+   "prom_gc_local": 1.3529,
+   "prom_gf_visitante": 1.2941,
+   "prom_gc_visitante": 1.7059
+  },
+  "Gençlerbirliği": {
+   "liga": "Süper Lig (Turquía)",
+   "prom_gf_local": 1.4118,
+   "prom_gc_local": 1.4118,
+   "prom_gf_visitante": 0.7059,
+   "prom_gc_visitante": 1.3529
+  },
+  "Konyaspor": {
+   "liga": "Süper Lig (Turquía)",
+   "prom_gf_local": 1.2353,
+   "prom_gc_local": 1.1176,
+   "prom_gf_visitante": 1.2941,
+   "prom_gc_visitante": 1.8235
+  },
+  "Alanyaspor": {
+   "liga": "Süper Lig (Turquía)",
+   "prom_gf_local": 1.3529,
+   "prom_gc_local": 1,
+   "prom_gf_visitante": 1.0588,
+   "prom_gc_visitante": 1.4118
+  },
+  "Kocaelispor": {
+   "liga": "Süper Lig (Turquía)",
+   "prom_gf_local": 0.8824,
+   "prom_gc_local": 0.7647,
+   "prom_gf_visitante": 0.6471,
+   "prom_gc_visitante": 1.4706
+  },
+  "Kasımpaşa SK": {
+   "liga": "Süper Lig (Turquía)",
+   "prom_gf_local": 0.8824,
+   "prom_gc_local": 1.1176,
+   "prom_gf_visitante": 1.0588,
+   "prom_gc_visitante": 1.7647
+  },
+  "Fatih Karagümrük": {
+   "liga": "Süper Lig (Turquía)",
+   "prom_gf_local": 1.0588,
+   "prom_gc_local": 1.3529,
+   "prom_gf_visitante": 0.7647,
+   "prom_gc_visitante": 1.8235
+  },
+  "Gaziantep FK": {
+   "liga": "Süper Lig (Turquía)",
+   "prom_gf_local": 1.2941,
+   "prom_gc_local": 1.5882,
+   "prom_gf_visitante": 1.2353,
+   "prom_gc_visitante": 1.8235
+  },
+  "Eyüpspor": {
+   "liga": "Süper Lig (Turquía)",
+   "prom_gf_local": 1.1176,
+   "prom_gc_local": 1.2353,
+   "prom_gf_visitante": 0.8235,
+   "prom_gc_visitante": 1.5882
+  },
+  "Antalyaspor": {
+   "liga": "Süper Lig (Turquía)",
+   "prom_gf_local": 1.2941,
+   "prom_gc_local": 1.9412,
+   "prom_gf_visitante": 0.6471,
+   "prom_gc_visitante": 1.2941
+  },
+  "Kayserispor": {
+   "liga": "Süper Lig (Turquía)",
+   "prom_gf_local": 0.8824,
+   "prom_gc_local": 1.8824,
+   "prom_gf_visitante": 0.7059,
+   "prom_gc_visitante": 1.7647
+  },
+  "Birmingham": {
+   "liga": "Championship (Inglaterra)",
+   "prom_gf_local": 2.375,
+   "prom_gc_local": 0.875,
+   "prom_gf_visitante": 0.6667,
+   "prom_gc_visitante": 1.3333
+  },
+  "Charlton": {
+   "liga": "Championship (Inglaterra)",
+   "prom_gf_local": 1.25,
+   "prom_gc_local": 1.125,
+   "prom_gf_visitante": 0.8,
+   "prom_gc_visitante": 1.4
+  },
+  "Coventry": {
+   "liga": "Championship (Inglaterra)",
+   "prom_gf_local": 2.7778,
+   "prom_gc_local": 0.7778,
+   "prom_gf_visitante": 2.7778,
+   "prom_gc_visitante": 1.2222
+  },
+  "Southampton": {
+   "liga": "Championship (Inglaterra)",
+   "prom_gf_local": 1.25,
+   "prom_gc_local": 0.875,
+   "prom_gf_visitante": 1.8,
+   "prom_gc_visitante": 1.8
+  },
+  "Middlesbrough": {
+   "liga": "Championship (Inglaterra)",
+   "prom_gf_local": 1.4444,
+   "prom_gc_local": 1.0,
+   "prom_gf_visitante": 1.2222,
+   "prom_gc_visitante": 1.1111
+  },
+  "Norwich": {
+   "liga": "Championship (Inglaterra)",
+   "prom_gf_local": 1.0,
+   "prom_gc_local": 1.6667,
+   "prom_gf_visitante": 1.1111,
+   "prom_gc_visitante": 1.5556
+  },
+  "Oxford": {
+   "liga": "Championship (Inglaterra)",
+   "prom_gf_local": 1.1111,
+   "prom_gc_local": 1.4444,
+   "prom_gf_visitante": 1.1111,
+   "prom_gc_visitante": 1.3333
+  },
+  "QPR": {
+   "liga": "Championship (Inglaterra)",
+   "prom_gf_local": 1.375,
+   "prom_gc_local": 1.5,
+   "prom_gf_visitante": 1.1,
+   "prom_gc_visitante": 1.6
+  },
+  "Stoke": {
+   "liga": "Championship (Inglaterra)",
+   "prom_gf_local": 1.6667,
+   "prom_gc_local": 0.7778,
+   "prom_gf_visitante": 1.2222,
+   "prom_gc_visitante": 0.7778
+  },
+  "West Brom": {
+   "liga": "Championship (Inglaterra)",
+   "prom_gf_local": 1.0,
+   "prom_gc_local": 0.75,
+   "prom_gf_visitante": 1.0,
+   "prom_gc_visitante": 1.5556
+  },
+  "Sheffield United": {
+   "liga": "Championship (Inglaterra)",
+   "prom_gf_local": 0.875,
+   "prom_gc_local": 1.375,
+   "prom_gf_visitante": 1.3,
+   "prom_gc_visitante": 1.7
+  },
+  "Leicester": {
+   "liga": "Championship (Inglaterra)",
+   "prom_gf_local": 1.2222,
+   "prom_gc_local": 1.1111,
+   "prom_gf_visitante": 1.2222,
+   "prom_gc_visitante": 1.4444
+  },
+  "Derby": {
+   "liga": "Championship (Inglaterra)",
+   "prom_gf_local": 1.3333,
+   "prom_gc_local": 1.4444,
+   "prom_gf_visitante": 1.4444,
+   "prom_gc_visitante": 1.3333
+  },
+  "Portsmouth": {
+   "liga": "Championship (Inglaterra)",
+   "prom_gf_local": 0.9,
+   "prom_gc_local": 1.1,
+   "prom_gf_visitante": 0.75,
+   "prom_gc_visitante": 1.75
+  },
+  "Wrexham": {
+   "liga": "Championship (Inglaterra)",
+   "prom_gf_local": 1.5556,
+   "prom_gc_local": 1.3333,
+   "prom_gf_visitante": 1.0,
+   "prom_gc_visitante": 0.875
+  },
+  "Blackburn": {
+   "liga": "Championship (Inglaterra)",
+   "prom_gf_local": 0.875,
+   "prom_gc_local": 1.75,
+   "prom_gf_visitante": 1.125,
+   "prom_gc_visitante": 0.875
+  },
+  "Bristol City": {
+   "liga": "Championship (Inglaterra)",
+   "prom_gf_local": 1.5556,
+   "prom_gc_local": 1.1111,
+   "prom_gf_visitante": 1.3333,
+   "prom_gc_visitante": 1.1111
+  },
+  "Millwall": {
+   "liga": "Championship (Inglaterra)",
+   "prom_gf_local": 1.2,
+   "prom_gc_local": 1.2,
+   "prom_gf_visitante": 1.25,
+   "prom_gc_visitante": 1.625
+  },
+  "Preston": {
+   "liga": "Championship (Inglaterra)",
+   "prom_gf_local": 1.4444,
+   "prom_gc_local": 1.0,
+   "prom_gf_visitante": 1.125,
+   "prom_gc_visitante": 1.0
+  },
+  "Sheffield Weds": {
+   "liga": "Championship (Inglaterra)",
+   "prom_gf_local": 0.3333,
+   "prom_gc_local": 2.3333,
+   "prom_gf_visitante": 1.125,
+   "prom_gc_visitante": 1.5
+  },
+  "Swansea": {
+   "liga": "Championship (Inglaterra)",
+   "prom_gf_local": 1.1111,
+   "prom_gc_local": 1.6667,
+   "prom_gf_visitante": 0.75,
+   "prom_gc_visitante": 1.125
+  },
+  "Watford": {
+   "liga": "Championship (Inglaterra)",
+   "prom_gf_local": 1.6667,
+   "prom_gc_local": 1.0,
+   "prom_gf_visitante": 1.0,
+   "prom_gc_visitante": 1.5
+  },
+  "Ipswich": {
+   "liga": "Championship (Inglaterra)",
+   "prom_gf_local": 1.6667,
+   "prom_gc_local": 1.0,
+   "prom_gf_visitante": 1.75,
+   "prom_gc_visitante": 1.125
+  },
+  "Hull": {
+   "liga": "Championship (Inglaterra)",
+   "prom_gf_local": 1.6667,
+   "prom_gc_local": 1.5556,
+   "prom_gf_visitante": 1.6667,
+   "prom_gc_visitante": 1.7778
+  },
+  "Fluminense": {
+   "liga": "Brasileirão Série A",
+   "prom_gf_local": 1.7692,
+   "prom_gc_local": 1.0769,
+   "prom_gf_visitante": 1.1818,
+   "prom_gc_visitante": 1.3636
+  },
+  "Athletico PR": {
+   "liga": "Brasileirão Série A",
+   "prom_gf_local": 1.6667,
+   "prom_gc_local": 0.5833,
+   "prom_gf_visitante": 1.1667,
+   "prom_gc_visitante": 1.25
+  },
+  "Palmeiras": {
+   "liga": "Brasileirão Série A",
+   "prom_gf_local": 1.75,
+   "prom_gc_local": 0.75,
+   "prom_gf_visitante": 1.9167,
+   "prom_gc_visitante": 0.9167
+  },
+  "Vitoria": {
+   "liga": "Brasileirão Série A",
+   "prom_gf_local": 1.3333,
+   "prom_gc_local": 0.75,
+   "prom_gf_visitante": 0.5833,
+   "prom_gc_visitante": 2.1667
+  },
+  "Cruzeiro": {
+   "liga": "Brasileirão Série A",
+   "prom_gf_local": 1.6154,
+   "prom_gc_local": 1.1538,
+   "prom_gf_visitante": 1.1818,
+   "prom_gc_visitante": 1.6364
+  },
+  "Flamengo": {
+   "liga": "Brasileirão Série A",
+   "prom_gf_local": 1.9,
+   "prom_gc_local": 0.8,
+   "prom_gf_visitante": 2.0,
+   "prom_gc_visitante": 1.0
+  },
+  "Gremio": {
+   "liga": "Brasileirão Série A",
+   "prom_gf_local": 1.6364,
+   "prom_gc_local": 1.1818,
+   "prom_gf_visitante": 0.5,
+   "prom_gc_visitante": 1.5
+  },
+  "Bragantino": {
+   "liga": "Brasileirão Série A",
+   "prom_gf_local": 1.4167,
+   "prom_gc_local": 0.9167,
+   "prom_gf_visitante": 1.0,
+   "prom_gc_visitante": 1.0909
+  },
+  "Atletico MG": {
+   "liga": "Brasileirão Série A",
+   "prom_gf_local": 1.7,
+   "prom_gc_local": 1.3,
+   "prom_gf_visitante": 1.0,
+   "prom_gc_visitante": 1.0769
+  },
+  "Santos": {
+   "liga": "Brasileirão Série A",
+   "prom_gf_local": 1.3846,
+   "prom_gc_local": 1.3077,
+   "prom_gf_visitante": 1.5,
+   "prom_gc_visitante": 1.9
+  },
+  "Sao Paulo": {
+   "liga": "Brasileirão Série A",
+   "prom_gf_local": 1.6,
+   "prom_gc_local": 0.9,
+   "prom_gf_visitante": 0.8462,
+   "prom_gc_visitante": 1.3846
+  },
+  "Bahia": {
+   "liga": "Brasileirão Série A",
+   "prom_gf_local": 1.4167,
+   "prom_gc_local": 0.9167,
+   "prom_gf_visitante": 1.4167,
+   "prom_gc_visitante": 1.4167
+  },
+  "Corinthians": {
+   "liga": "Brasileirão Série A",
+   "prom_gf_local": 1.0833,
+   "prom_gc_local": 0.8333,
+   "prom_gf_visitante": 1.0833,
+   "prom_gc_visitante": 1.1667
+  },
+  "Coritiba": {
+   "liga": "Brasileirão Série A",
+   "prom_gf_local": 1.25,
+   "prom_gc_local": 1.1667,
+   "prom_gf_visitante": 1.25,
+   "prom_gc_visitante": 1.4167
+  },
+  "Mirassol": {
+   "liga": "Brasileirão Série A",
+   "prom_gf_local": 1.3333,
+   "prom_gc_local": 1.5,
+   "prom_gf_visitante": 0.9091,
+   "prom_gc_visitante": 1.6364
+  },
+  "Vasco da Gama": {
+   "liga": "Brasileirão Série A",
+   "prom_gf_local": 1.0833,
+   "prom_gc_local": 1.4167,
+   "prom_gf_visitante": 1.0,
+   "prom_gc_visitante": 1.9091
+  },
+  "Botafogo": {
+   "liga": "Brasileirão Série A",
+   "prom_gf_local": 1.8182,
+   "prom_gc_local": 1.5455,
+   "prom_gf_visitante": 1.4167,
+   "prom_gc_visitante": 1.6667
+  },
+  "Remo": {
+   "liga": "Brasileirão Série A",
+   "prom_gf_local": 1.3636,
+   "prom_gc_local": 1.1818,
+   "prom_gf_visitante": 1.0,
+   "prom_gc_visitante": 2.0
+  },
+  "Internacional": {
+   "liga": "Brasileirão Série A",
+   "prom_gf_local": 1.0769,
+   "prom_gc_local": 1.0,
+   "prom_gf_visitante": 0.9091,
+   "prom_gc_visitante": 1.3636
+  },
+  "Chapecoense": {
+   "liga": "Brasileirão Série A",
+   "prom_gf_local": 1.4167,
+   "prom_gc_local": 2.25,
+   "prom_gf_visitante": 0.6364,
+   "prom_gc_visitante": 1.7273
+  }
+ },
+ "leagues": {
+  "Premier League": {
+   "prom_gf_local": 1.59,
+   "prom_gf_visitante": 1.2236
+  },
+  "La Liga": {
+   "prom_gf_local": 1.498,
+   "prom_gf_visitante": 1.1084
+  },
+  "Serie A": {
+   "prom_gf_local": 1.2763,
+   "prom_gf_visitante": 1.15
+  },
+  "Bundesliga": {
+   "prom_gf_local": 1.7263,
+   "prom_gf_visitante": 1.4753
+  },
+  "Ligue 1": {
+   "prom_gf_local": 1.5817,
+   "prom_gf_visitante": 1.2386
+  },
+  "Eredivisie (Holanda)": {
+   "prom_gf_local": 1.8007,
+   "prom_gf_visitante": 1.3758
+  },
+  "Jupiler Pro League (Bélgica)": {
+   "prom_gf_local": 1.4254,
+   "prom_gf_visitante": 1.2398
+  },
+  "Segunda División (España)": {
+   "prom_gf_local": 1.4524,
+   "prom_gf_visitante": 1.1797
+  },
+  "2. Bundesliga (Alemania)": {
+   "prom_gf_local": 1.6307,
+   "prom_gf_visitante": 1.3007
+  },
+  "Primeira Liga (Portugal)": {
+   "prom_gf_local": 1.4967,
+   "prom_gf_visitante": 1.1863
+  },
+  "Süper Lig (Turquía)": {
+   "prom_gf_local": 1.4444,
+   "prom_gf_visitante": 1.2092
+  },
+  "Championship (Inglaterra)": {
+   "prom_gf_local": 1.3602,
+   "prom_gf_visitante": 1.2417
+  },
+  "Brasileirão Série A": {
+   "prom_gf_local": 1.4723,
+   "prom_gf_visitante": 1.1277
+  }
+ },
+ "value_threshold": 0.05
+}
