@@ -1,5 +1,5 @@
 {
-  "last_update_id": 629785466,
+  "last_update_id": 629785467,
   "next_alert_id": 2,
   "alerts": [
     {
@@ -11,9 +11,44 @@
       "triggered": true
     }
   ],
-  "value_subscribers": [],
-  "value_alerts_sent": [],
-  "last_value_scan_date": "",
-  "value_log": [],
+  "value_subscribers": [
+    929236747
+  ],
+  "value_alerts_sent": [
+    1492358
+  ],
+  "last_value_scan_date": "2026-08-29",
+  "value_log": [
+    {
+      "fixture_id": 1492358,
+      "fecha": "2026-08-29",
+      "home": "Sao Paulo",
+      "away": "RB Bragantino",
+      "mercado": "Under 2.5",
+      "cuota": 1.7,
+      "prob_modelo": 0.6814,
+      "prob_implicita": 0.5882,
+      "diferencia": 0.0931,
+      "resuelto": false,
+      "acierto": null,
+      "goles_local": null,
+      "goles_visita": null
+    },
+    {
+      "fixture_id": 1492358,
+      "fecha": "2026-08-29",
+      "home": "Sao Paulo",
+      "away": "RB Bragantino",
+      "mercado": "BTTS - No",
+      "cuota": 1.9,
+      "prob_modelo": 0.6181,
+      "prob_implicita": 0.5263,
+      "diferencia": 0.0918,
+      "resuelto": false,
+      "acierto": null,
+      "goles_local": null,
+      "goles_visita": null
+    }
+  ],
   "last_resolve_date": "2026-08-29"
 }
