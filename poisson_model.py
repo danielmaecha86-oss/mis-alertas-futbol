@@ -161,28 +161,22 @@ def find_value_bets(home_team, away_team, odds_1x2=None, odds_over25=None,
                 "diferencia": round(diff, 4),
             })
 
-    # --- Bot configurado para enfocarse SOLO en "BTTS - Sí" ---
-    # Los demás mercados quedan comentados (no borrados) por si más
-    # adelante quieres reactivarlos. Para volver a todos los mercados,
-    # solo hay que "descomentar" estas líneas.
-    #
-    # if odds_1x2:
-    #     cuota_local, cuota_empate, cuota_visitante = odds_1x2
-    #     if cuota_local:
-    #         _add_if_value("Local (1)", probs["home_win"], cuota_local)
-    #     if cuota_empate:
-    #         _add_if_value("Empate (X)", probs["draw"], cuota_empate)
-    #     if cuota_visitante:
-    #         _add_if_value("Visitante (2)", probs["away_win"], cuota_visitante)
-    #
-    # if odds_over25:
-    #     _add_if_value("Over 2.5", probs["over_2_5"], odds_over25)
-    # if odds_under25:
-    #     _add_if_value("Under 2.5", probs["under_2_5"], odds_under25)
-    # if odds_btts_no:
-    #     _add_if_value("BTTS - No", probs["btts_no"], odds_btts_no)
+    if odds_1x2:
+        cuota_local, cuota_empate, cuota_visitante = odds_1x2
+        if cuota_local:
+            _add_if_value("Local (1)", probs["home_win"], cuota_local)
+        if cuota_empate:
+            _add_if_value("Empate (X)", probs["draw"], cuota_empate)
+        if cuota_visitante:
+            _add_if_value("Visitante (2)", probs["away_win"], cuota_visitante)
 
+    if odds_over25:
+        _add_if_value("Over 2.5", probs["over_2_5"], odds_over25)
+    if odds_under25:
+        _add_if_value("Under 2.5", probs["under_2_5"], odds_under25)
     if odds_btts_yes:
         _add_if_value("BTTS - Sí", probs["btts_yes"], odds_btts_yes)
+    if odds_btts_no:
+        _add_if_value("BTTS - No", probs["btts_no"], odds_btts_no)
 
     return value_bets
