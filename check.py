@@ -23,7 +23,7 @@ import json
 from datetime import date
 import requests
 
-from poisson_model import find_value_bets
+from poisson_model import find_value_bets, LEAGUES
 
 TELEGRAM_BOT_TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN", "")
 APIFOOTBALL_KEY = os.environ.get("APIFOOTBALL_KEY", "")
@@ -130,7 +130,7 @@ def process_commands(state):
                     chat_id,
                     "🎯 Alertas de value bets activadas. Te aviso cuando mi "
                     "modelo Poisson detecte una cuota con valor en los "
-                    "partidos de hoy que cubre tu Excel (11 ligas cargadas). "
+                    f"partidos de hoy ({len(LEAGUES)} ligas cargadas). "
                     "Umbral mínimo: "
                     f"{VALUE_THRESHOLD_DISPLAY}.",
                 )
@@ -375,8 +375,8 @@ def scan_value_bets(events):
     """
     Recorre los partidos del día, corre el modelo Poisson (poisson_model.py)
     sobre cada uno, y arma un mensaje por partido donde se detectó valor.
-    Solo incluye partidos de equipos que existen en teams_stats.json (las
-    11 ligas que cargaste en tu Excel).
+    Solo incluye partidos de equipos que existen en teams_stats.json
+    (las ligas cargadas ahí; el número exacto se calcula con LEAGUES).
     Devuelve una lista de dicts:
       {"fixture_id", "home", "away", "message", "value_bets"}
     donde "value_bets" trae los datos crudos de cada mercado con valor
