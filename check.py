@@ -302,25 +302,35 @@ def fetch_soccer_events():
             "btts_no_odds": None,
         }
 
+        # En vez de quedarnos con la primera casa que responde, juntamos
+        # las cuotas de TODAS las casas disponibles y promediamos. Esto
+        # evita que una sola casa mal calibrada genere una falsa señal
+        # de valor (mejora de calidad #1).
+        odds_lists = {
+            "home_odds": [], "draw_odds": [], "away_odds": [],
+            "over25_odds": [], "under25_odds": [],
+            "btts_yes_odds": [], "btts_no_odds": [],
+        }
+
         for bookmaker in od.get("bookmakers", []):
             for bet in bookmaker.get("bets", []):
                 bet_name = bet.get("name", "")
                 values = bet.get("values", [])
 
-                if bet_name == "Match Winner" and parsed["home_odds"] is None:
+                if bet_name == "Match Winner":
                     for val in values:
                         try:
                             odd = float(val["odd"])
                         except (KeyError, ValueError, TypeError):
                             continue
                         if val.get("value") == "Home":
-                            parsed["home_odds"] = odd
+                            odds_lists["home_odds"].append(odd)
                         elif val.get("value") == "Draw":
-                            parsed["draw_odds"] = odd
+                            odds_lists["draw_odds"].append(odd)
                         elif val.get("value") == "Away":
-                            parsed["away_odds"] = odd
+                            odds_lists["away_odds"].append(odd)
 
-                elif bet_name == "Goals Over/Under" and parsed["over25_odds"] is None:
+                elif bet_name == "Goals Over/Under":
                     for val in values:
                         try:
                             odd = float(val["odd"])
@@ -328,11 +338,11 @@ def fetch_soccer_events():
                             continue
                         label = str(val.get("value", ""))
                         if label == "Over 2.5":
-                            parsed["over25_odds"] = odd
+                            odds_lists["over25_odds"].append(odd)
                         elif label == "Under 2.5":
-                            parsed["under25_odds"] = odd
+                            odds_lists["under25_odds"].append(odd)
 
-                elif bet_name == "Both Teams Score" and parsed["btts_yes_odds"] is None:
+                elif bet_name == "Both Teams Score":
                     for val in values:
                         try:
                             odd = float(val["odd"])
@@ -340,14 +350,14 @@ def fetch_soccer_events():
                             continue
                         label = str(val.get("value", "")).lower()
                         if label == "yes":
-                            parsed["btts_yes_odds"] = odd
+                            odds_lists["btts_yes_odds"].append(odd)
                         elif label == "no":
-                            parsed["btts_no_odds"] = odd
+                            odds_lists["btts_no_odds"].append(odd)
 
-            # Ya tenemos los 3 mercados de la primera casa que los trae; no
-            # hace falta seguir revisando más bookmakers para este partido.
-            if parsed["home_odds"] and parsed["over25_odds"] and parsed["btts_yes_odds"]:
-                break
+        # Promedio simple de cada mercado (solo si al menos una casa lo trae)
+        for key, values in odds_lists.items():
+            if values:
+                parsed[key] = round(sum(values) / len(values), 3)
 
         events.append(parsed)
 
