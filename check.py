@@ -368,7 +368,7 @@ def extract_home_win_odds(event):
     return event.get("home_odds")
 
 
-VALUE_THRESHOLD_DISPLAY = "5%"  # se muestra en /valor; ajusta si cambias teams_stats.json
+VALUE_THRESHOLD_DISPLAY = "3%"  # se muestra en /valor; ajusta si cambias teams_stats.json
 
 
 def scan_value_bets(events):
