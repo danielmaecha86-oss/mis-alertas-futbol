@@ -14,10 +14,8 @@
   "value_subscribers": [
     929236747
   ],
-  "value_alerts_sent": [
-    1492358
-  ],
-  "last_value_scan_date": "2026-08-29",
+  "value_alerts_sent": [],
+  "last_value_scan_date": "2026-08-30",
   "value_log": [
     {
       "fixture_id": 1492358,
@@ -50,5 +48,5 @@
       "goles_visita": null
     }
   ],
-  "last_resolve_date": "2026-08-29"
+  "last_resolve_date": "2026-08-30"
 }
