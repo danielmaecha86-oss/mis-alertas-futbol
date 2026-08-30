@@ -109,7 +109,8 @@ def process_commands(state):
                 "/valor on - activar alertas automáticas de value bets\n"
                 "/valor off - desactivar alertas de value bets\n"
                 "/rendimiento - ver aciertos de tus value bets pasadas\n"
-                "/cupo - ver cuántas solicitudes de API llevas usadas hoy\n\n"
+                "/cupo - ver cuántas solicitudes de API llevas usadas hoy\n"
+                "/prediccion LOCAL vs VISITA - ver predicción de API-Football\n\n"
                 "Nota: reviso cada 30 min (versión GitHub Actions), "
                 "no en tiempo real.",
             )
@@ -145,6 +146,10 @@ def process_commands(state):
 
         elif text.startswith("/cupo"):
             send_message(chat_id, build_cupo_message())
+
+        elif text.startswith("/prediccion "):
+            parts = text.split(maxsplit=1)[1] if len(text.split(maxsplit=1)) > 1 else ""
+            send_message(chat_id, build_prediccion_message(parts))
 
         elif text.startswith("/partidos"):
             events = fetch_soccer_events(fetch_all_pages=True)
@@ -251,6 +256,69 @@ def process_commands(state):
 # ---------------------------------------------------------------------------
 # API-Football (api-football.com)
 # ---------------------------------------------------------------------------
+def build_prediccion_message(query):
+    """
+    Formato esperado: /prediccion EQUIPO_LOCAL vs EQUIPO_VISITA
+    Busca el partido de HOY que coincida con esos nombres, y consulta el
+    endpoint /predictions de API-Football para ese fixture_id. Gasta 2
+    solicitudes del cupo diario (fixtures + predictions), así que úsalo
+    con moderación, no para cada partido del día.
+    """
+    if " vs " not in query.lower():
+        return "Formato: /prediccion EQUIPO_LOCAL vs EQUIPO_VISITA"
+
+    partes = query.lower().split(" vs ")
+    home_query, away_query = partes[0].strip(), partes[1].strip()
+
+    today = date.today().isoformat()
+    fixtures = _apifootball_get("fixtures", {"date": today})
+
+    fixture_id = None
+    home_name = away_name = None
+    for fx in fixtures:
+        try:
+            h = fx["teams"]["home"]["name"]
+            a = fx["teams"]["away"]["name"]
+        except (KeyError, TypeError):
+            continue
+        if home_query in h.lower() and away_query in a.lower():
+            fixture_id = fx["fixture"]["id"]
+            home_name, away_name = h, a
+            break
+
+    if fixture_id is None:
+        return (
+            f"No encontré un partido hoy que coincida con "
+            f"'{home_query} vs {away_query}'. Revisa /partidos para ver "
+            "los nombres exactos."
+        )
+
+    pred_data = _apifootball_get("predictions", {"fixture": fixture_id})
+    if not pred_data:
+        return f"No hay predicción disponible todavía para {home_name} vs {away_name}."
+
+    try:
+        p = pred_data[0]["predictions"]
+        winner = p.get("winner", {}).get("name", "sin datos")
+        advice = p.get("advice", "sin datos")
+        pct = p.get("percent", {})
+        goals = p.get("goals", {})
+    except (KeyError, IndexError, TypeError):
+        return "La API devolvió datos en un formato inesperado para este partido."
+
+    return (
+        f"🔮 Predicción de API-Football: {home_name} vs {away_name}\n"
+        f"Ganador probable: {winner}\n"
+        f"Consejo: {advice}\n"
+        f"% Local/Empate/Visitante: {pct.get('home', '?')} / "
+        f"{pct.get('draw', '?')} / {pct.get('away', '?')}\n"
+        f"Goles esperados - Local: {goals.get('home', '?')}, "
+        f"Visitante: {goals.get('away', '?')}\n\n"
+        "Nota: este es el modelo propio de la API (no usa cuotas de "
+        "mercado), es una segunda opinión independiente de tu Poisson."
+    )
+
+
 def build_cupo_message():
     """
     Consulta el endpoint /status de API-Football, que según su
