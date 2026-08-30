@@ -152,15 +152,30 @@ def process_commands(state):
                     "esté bien configurada.",
                 )
             else:
-                lines = ["📅 Partidos de hoy:"]
-                for ev in events[:15]:
+                all_lines = []
+                for ev in events:
                     odds_txt = (
                         f"cuota local: {ev['home_odds']}"
                         if ev.get("home_odds")
                         else "cuota no disponible"
                     )
-                    lines.append(f"• {ev['home']} vs {ev['away']} ({odds_txt})")
-                send_message(chat_id, "\n".join(lines))
+                    all_lines.append(f"• {ev['home']} vs {ev['away']} ({odds_txt})")
+
+                # Telegram tiene un límite de ~4096 caracteres por mensaje.
+                # Si hay muchos partidos, los mandamos en varios mensajes
+                # de máximo 25 líneas cada uno, en vez de cortar la lista.
+                CHUNK_SIZE = 25
+                total = len(all_lines)
+                for i in range(0, total, CHUNK_SIZE):
+                    chunk = all_lines[i : i + CHUNK_SIZE]
+                    parte = (i // CHUNK_SIZE) + 1
+                    partes_totales = (total + CHUNK_SIZE - 1) // CHUNK_SIZE
+                    encabezado = (
+                        f"📅 Partidos de hoy ({total} en total)"
+                        if partes_totales == 1
+                        else f"📅 Partidos de hoy ({total} en total) - parte {parte}/{partes_totales}"
+                    )
+                    send_message(chat_id, "\n".join([encabezado] + chunk))
 
         elif text.startswith("/alerta "):
             parts = text.split()[1:]
