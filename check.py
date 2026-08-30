@@ -323,7 +323,10 @@ def fetch_soccer_events(fetch_all_pages=False):
     """
     today = date.today().isoformat()
 
-    fixtures = _apifootball_get("fixtures", {"date": today})
+    if fetch_all_pages:
+        fixtures = _apifootball_get_all_pages("fixtures", {"date": today})
+    else:
+        fixtures = _apifootball_get("fixtures", {"date": today})
     fixtures_by_id = {}
     for fx in fixtures:
         try:
