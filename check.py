@@ -143,7 +143,7 @@ def process_commands(state):
                 )
 
         elif text.startswith("/partidos"):
-            events = fetch_soccer_events()
+            events = fetch_soccer_events(fetch_all_pages=True)
             if not events:
                 send_message(
                     chat_id,
@@ -262,22 +262,64 @@ def _apifootball_get(endpoint, params):
         return []
 
 
-def fetch_soccer_events():
+def _apifootball_get_all_pages(endpoint, params, max_pages=10):
     """
-    Combina dos llamadas (cuentan 2 de tus 100 solicitudes/día):
+    Igual que _apifootball_get, pero revisa el campo 'paging' de la
+    respuesta y sigue pidiendo páginas siguientes hasta traer todo (o
+    hasta max_pages, como límite de seguridad). Cada página cuenta como
+    una solicitud separada de tu cupo diario, así que solo se usa donde
+    de verdad hace falta ver TODOS los resultados (ej. /partidos), no en
+    el escaneo automático de cada 30 min.
+    """
+    if not APIFOOTBALL_KEY:
+        print("APIFOOTBALL_KEY no configurada.")
+        return []
+    url = f"{APIFOOTBALL_BASE_URL}/{endpoint}"
+    headers = {"x-apisports-key": APIFOOTBALL_KEY}
+    all_results = []
+    page = 1
+    while page <= max_pages:
+        try:
+            resp = requests.get(
+                url, headers=headers, params={**params, "page": page}, timeout=15
+            )
+            resp.raise_for_status()
+            data = resp.json()
+        except requests.RequestException as e:
+            print(f"Error consultando API-Football ({endpoint}, pág. {page}): {e}")
+            break
+
+        all_results.extend(data.get("response", []))
+        paging = data.get("paging", {})
+        total_pages = paging.get("total", 1)
+        if page >= total_pages:
+            break
+        page += 1
+
+    return all_results
+
+
+def fetch_soccer_events(fetch_all_pages=False):
+    """
+    Combina dos llamadas a la API:
       1. /fixtures?date=hoy  -> para saber qué equipos juegan (nombres)
       2. /odds?date=hoy      -> para las cuotas de esos partidos
-    y devuelve una lista de partidos con la forma:
+
+    IMPORTANTE sobre paginación: la API de cuotas (/odds) devuelve
+    máximo 10 partidos por página. Si fetch_all_pages=False (default),
+    solo se pide la página 1 (cuenta 2 solicitudes de tu cupo). Si
+    fetch_all_pages=True, se piden TODAS las páginas necesarias (puede
+    costar bastantes más solicitudes) — se usa solo en /partidos, que
+    tú disparas manualmente, no en el escaneo automático cada 30 min
+    (para no gastar el cupo diario de 100 solicitudes sin control).
+
+    Devuelve una lista de partidos con la forma:
       {
         "fixture_id": int, "home": str, "away": str,
         "home_odds": float|None, "draw_odds": float|None, "away_odds": float|None,
         "over25_odds": float|None, "under25_odds": float|None,
         "btts_yes_odds": float|None, "btts_no_odds": float|None,
       }
-
-    Nota: revisa /partidos en Telegram para confirmar que esto trae datos
-    reales antes de crear alertas en serio. La estructura de la API puede
-    variar según cobertura de liga/temporada.
     """
     today = date.today().isoformat()
 
@@ -292,7 +334,10 @@ def fetch_soccer_events():
         except (KeyError, TypeError):
             continue
 
-    odds_data = _apifootball_get("odds", {"date": today})
+    if fetch_all_pages:
+        odds_data = _apifootball_get_all_pages("odds", {"date": today})
+    else:
+        odds_data = _apifootball_get("odds", {"date": today})
     events = []
     for od in odds_data:
         try:
