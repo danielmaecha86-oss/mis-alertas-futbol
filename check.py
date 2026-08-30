@@ -108,7 +108,8 @@ def process_commands(state):
                 "/quitar ID\n"
                 "/valor on - activar alertas automáticas de value bets\n"
                 "/valor off - desactivar alertas de value bets\n"
-                "/rendimiento - ver aciertos de tus value bets pasadas\n\n"
+                "/rendimiento - ver aciertos de tus value bets pasadas\n"
+                "/cupo - ver cuántas solicitudes de API llevas usadas hoy\n\n"
                 "Nota: reviso cada 30 min (versión GitHub Actions), "
                 "no en tiempo real.",
             )
@@ -141,6 +142,9 @@ def process_commands(state):
                     f"Tus alertas de value bets están {estado}.\n"
                     "Usa /valor on o /valor off para cambiarlo.",
                 )
+
+        elif text.startswith("/cupo"):
+            send_message(chat_id, build_cupo_message())
 
         elif text.startswith("/partidos"):
             events = fetch_soccer_events(fetch_all_pages=True)
@@ -247,6 +251,38 @@ def process_commands(state):
 # ---------------------------------------------------------------------------
 # API-Football (api-football.com)
 # ---------------------------------------------------------------------------
+def build_cupo_message():
+    """
+    Consulta el endpoint /status de API-Football, que según su
+    documentación oficial NO cuenta contra el cupo diario de 100
+    solicitudes. Sirve para saber cuánto cupo llevas gastado hoy antes
+    de decidir si usar /partidos (que sí puede gastar varias solicitudes
+    de golpe al paginar).
+    """
+    if not APIFOOTBALL_KEY:
+        return "⚠️ APIFOOTBALL_KEY no configurada."
+
+    url = f"{APIFOOTBALL_BASE_URL}/status"
+    headers = {"x-apisports-key": APIFOOTBALL_KEY}
+    try:
+        resp = requests.get(url, headers=headers, timeout=15)
+        resp.raise_for_status()
+        info = resp.json().get("response", {})
+    except requests.RequestException as e:
+        return f"⚠️ No pude consultar el cupo: {e}"
+
+    reqs = info.get("requests", {})
+    current = reqs.get("current", "?")
+    limit_day = reqs.get("limit_day", "?")
+    plan = info.get("subscription", {}).get("plan", "?")
+
+    return (
+        f"📊 Cupo de API-Football hoy:\n"
+        f"{current} / {limit_day} solicitudes usadas (plan {plan}).\n\n"
+        "Esta consulta es gratis, no descuenta de tu cupo."
+    )
+
+
 def _apifootball_get(endpoint, params):
     if not APIFOOTBALL_KEY:
         print("APIFOOTBALL_KEY no configurada.")
