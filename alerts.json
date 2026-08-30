@@ -1,5 +1,5 @@
 {
-  "last_update_id": 629785479,
+  "last_update_id": 629785480,
   "next_alert_id": 2,
   "alerts": [
     {
@@ -14,7 +14,9 @@
   "value_subscribers": [
     929236747
   ],
-  "value_alerts_sent": [],
+  "value_alerts_sent": [
+    1492350
+  ],
   "last_value_scan_date": "2026-08-30",
   "value_log": [
     {
@@ -42,6 +44,36 @@
       "prob_modelo": 0.6181,
       "prob_implicita": 0.5263,
       "diferencia": 0.0918,
+      "resuelto": false,
+      "acierto": null,
+      "goles_local": null,
+      "goles_visita": null
+    },
+    {
+      "fixture_id": 1492350,
+      "fecha": "2026-08-30",
+      "home": "Atletico Paranaense",
+      "away": "Fluminense",
+      "mercado": "Local (1)",
+      "cuota": 2.159,
+      "prob_modelo": 0.5992,
+      "prob_implicita": 0.4632,
+      "diferencia": 0.136,
+      "resuelto": false,
+      "acierto": null,
+      "goles_local": null,
+      "goles_visita": null
+    },
+    {
+      "fixture_id": 1492350,
+      "fecha": "2026-08-30",
+      "home": "Atletico Paranaense",
+      "away": "Fluminense",
+      "mercado": "BTTS - No",
+      "cuota": 1.789,
+      "prob_modelo": 0.6398,
+      "prob_implicita": 0.559,
+      "diferencia": 0.0808,
       "resuelto": false,
       "acierto": null,
       "goles_local": null,
