@@ -311,9 +311,7 @@ def build_prediccion_message(query):
         f"Ganador probable: {winner}\n"
         f"Consejo: {advice}\n"
         f"% Local/Empate/Visitante: {pct.get('home', '?')} / "
-        f"{pct.get('draw', '?')} / {pct.get('away', '?')}\n"
-        f"Goles esperados - Local: {goals.get('home', '?')}, "
-        f"Visitante: {goals.get('away', '?')}\n\n"
+        f"{pct.get('draw', '?')} / {pct.get('away', '?')}\n\n"
         "Nota: este es el modelo propio de la API (no usa cuotas de "
         "mercado), es una segunda opinión independiente de tu Poisson."
     )
