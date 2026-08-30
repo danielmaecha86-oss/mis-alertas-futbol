@@ -1749,6 +1749,13 @@
    "prom_gc_local": 2.25,
    "prom_gf_visitante": 0.6364,
    "prom_gc_visitante": 1.7273
+  },
+  "Atletico Paranaense": {
+   "liga": "Brasileirão Série A",
+   "prom_gf_local": 1.6667,
+   "prom_gc_local": 0.5833,
+   "prom_gf_visitante": 1.1667,
+   "prom_gc_visitante": 1.25
   }
  },
  "leagues": {
