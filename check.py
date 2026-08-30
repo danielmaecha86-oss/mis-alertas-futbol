@@ -153,12 +153,19 @@ def process_commands(state):
 
         elif text.startswith("/partidos"):
             events = fetch_soccer_events(fetch_all_pages=True)
-            if not events:
+            if events is None:
                 send_message(
                     chat_id,
-                    "No encontré partidos con cuotas para hoy. Puede que "
-                    "no haya partidos importantes hoy, o que la key no "
-                    "esté bien configurada.",
+                    "⚠️ No pude consultar la API ahora mismo (probablemente "
+                    "se acabó el cupo diario de 100 solicitudes, o hay un "
+                    "problema de conexión). Usa /cupo para confirmar cuánto "
+                    "cupo te queda hoy.",
+                )
+            elif not events:
+                send_message(
+                    chat_id,
+                    "Consulté la API correctamente, pero no hay partidos "
+                    "con cuotas publicadas todavía para hoy.",
                 )
             else:
                 all_lines = []
@@ -271,7 +278,10 @@ def build_prediccion_message(query):
     home_query, away_query = partes[0].strip(), partes[1].strip()
 
     today = date.today().isoformat()
-    fixtures = _apifootball_get("fixtures", {"date": today})
+    try:
+        fixtures = _apifootball_get("fixtures", {"date": today})
+    except ApiFootballError as e:
+        return f"⚠️ No pude consultar la API: {e}\nUsa /cupo para revisar tu cupo diario."
 
     fixture_id = None
     home_name = away_name = None
@@ -293,7 +303,10 @@ def build_prediccion_message(query):
             "los nombres exactos."
         )
 
-    pred_data = _apifootball_get("predictions", {"fixture": fixture_id})
+    try:
+        pred_data = _apifootball_get("predictions", {"fixture": fixture_id})
+    except ApiFootballError as e:
+        return f"⚠️ No pude consultar la API: {e}\nUsa /cupo para revisar tu cupo diario."
     if not pred_data:
         return f"No hay predicción disponible todavía para {home_name} vs {away_name}."
 
@@ -349,19 +362,32 @@ def build_cupo_message():
     )
 
 
+class ApiFootballError(Exception):
+    """Se lanza cuando la API responde con un error real (ej. cupo
+    agotado), para distinguirlo de 'de verdad no hay partidos hoy'."""
+    pass
+
+
 def _apifootball_get(endpoint, params):
     if not APIFOOTBALL_KEY:
-        print("APIFOOTBALL_KEY no configurada.")
-        return []
+        raise ApiFootballError("APIFOOTBALL_KEY no configurada.")
     url = f"{APIFOOTBALL_BASE_URL}/{endpoint}"
     headers = {"x-apisports-key": APIFOOTBALL_KEY}
     try:
         resp = requests.get(url, headers=headers, params=params, timeout=15)
         resp.raise_for_status()
-        return resp.json().get("response", [])
+        data = resp.json()
     except requests.RequestException as e:
-        print(f"Error consultando API-Football ({endpoint}): {e}")
-        return []
+        raise ApiFootballError(f"Error de conexión con API-Football: {e}")
+
+    errors = data.get("errors")
+    # La API a veces devuelve "errors" como lista vacía y a veces como
+    # dict vacío cuando todo está bien, así que solo es un error real
+    # si tiene contenido.
+    if errors:
+        raise ApiFootballError(f"API-Football devolvió un error: {errors}")
+
+    return data.get("response", [])
 
 
 def _apifootball_get_all_pages(endpoint, params, max_pages=10):
@@ -374,8 +400,7 @@ def _apifootball_get_all_pages(endpoint, params, max_pages=10):
     el escaneo automático de cada 30 min.
     """
     if not APIFOOTBALL_KEY:
-        print("APIFOOTBALL_KEY no configurada.")
-        return []
+        raise ApiFootballError("APIFOOTBALL_KEY no configurada.")
     url = f"{APIFOOTBALL_BASE_URL}/{endpoint}"
     headers = {"x-apisports-key": APIFOOTBALL_KEY}
     all_results = []
@@ -388,8 +413,13 @@ def _apifootball_get_all_pages(endpoint, params, max_pages=10):
             resp.raise_for_status()
             data = resp.json()
         except requests.RequestException as e:
-            print(f"Error consultando API-Football ({endpoint}, pág. {page}): {e}")
-            break
+            raise ApiFootballError(
+                f"Error de conexión con API-Football (pág. {page}): {e}"
+            )
+
+        errors = data.get("errors")
+        if errors:
+            raise ApiFootballError(f"API-Football devolvió un error: {errors}")
 
         all_results.extend(data.get("response", []))
         paging = data.get("paging", {})
@@ -422,13 +452,22 @@ def fetch_soccer_events(fetch_all_pages=False):
         "over25_odds": float|None, "under25_odds": float|None,
         "btts_yes_odds": float|None, "btts_no_odds": float|None,
       }
+
+    Devuelve None (en vez de lista vacía) si hubo un ERROR real de la
+    API (ej. cupo agotado) — así el que llama puede distinguir "de
+    verdad no hay partidos hoy" de "no pude ni preguntarle a la API".
     """
     today = date.today().isoformat()
 
-    if fetch_all_pages:
-        fixtures = _apifootball_get_all_pages("fixtures", {"date": today})
-    else:
-        fixtures = _apifootball_get("fixtures", {"date": today})
+    try:
+        if fetch_all_pages:
+            fixtures = _apifootball_get_all_pages("fixtures", {"date": today})
+        else:
+            fixtures = _apifootball_get("fixtures", {"date": today})
+    except ApiFootballError as e:
+        print(f"fetch_soccer_events: {e}")
+        return None
+
     fixtures_by_id = {}
     for fx in fixtures:
         try:
@@ -439,10 +478,15 @@ def fetch_soccer_events(fetch_all_pages=False):
         except (KeyError, TypeError):
             continue
 
-    if fetch_all_pages:
-        odds_data = _apifootball_get_all_pages("odds", {"date": today})
-    else:
-        odds_data = _apifootball_get("odds", {"date": today})
+    try:
+        if fetch_all_pages:
+            odds_data = _apifootball_get_all_pages("odds", {"date": today})
+        else:
+            odds_data = _apifootball_get("odds", {"date": today})
+    except ApiFootballError as e:
+        print(f"fetch_soccer_events: {e}")
+        return None
+
     events = []
     for od in odds_data:
         try:
@@ -681,7 +725,11 @@ def resolve_pending_results(state):
     for i in range(0, len(pending_ids), 20):
         chunk = pending_ids[i : i + 20]
         ids_param = "-".join(str(x) for x in chunk)
-        fixtures = _apifootball_get("fixtures", {"ids": ids_param})
+        try:
+            fixtures = _apifootball_get("fixtures", {"ids": ids_param})
+        except ApiFootballError as e:
+            print(f"resolve_pending_results: {e}")
+            break  # se reintenta en la próxima corrida diaria
         for fx in fixtures:
             try:
                 fid = fx["fixture"]["id"]
