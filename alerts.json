@@ -15,9 +15,9 @@
     929236747
   ],
   "value_alerts_sent": [
-    1492350
+    1492357
   ],
-  "last_value_scan_date": "2026-08-30",
+  "last_value_scan_date": "2026-08-31",
   "value_log": [
     {
       "fixture_id": 1492358,
@@ -78,7 +78,37 @@
       "acierto": null,
       "goles_local": null,
       "goles_visita": null
+    },
+    {
+      "fixture_id": 1492357,
+      "fecha": "2026-08-31",
+      "home": "Remo",
+      "away": "Coritiba",
+      "mercado": "Visitante (2)",
+      "cuota": 3.407,
+      "prob_modelo": 0.3678,
+      "prob_implicita": 0.2935,
+      "diferencia": 0.0743,
+      "resuelto": false,
+      "acierto": null,
+      "goles_local": null,
+      "goles_visita": null
+    },
+    {
+      "fixture_id": 1492357,
+      "fecha": "2026-08-31",
+      "home": "Remo",
+      "away": "Coritiba",
+      "mercado": "Over 2.5",
+      "cuota": 2.201,
+      "prob_modelo": 0.4862,
+      "prob_implicita": 0.4543,
+      "diferencia": 0.0319,
+      "resuelto": false,
+      "acierto": null,
+      "goles_local": null,
+      "goles_visita": null
     }
   ],
-  "last_resolve_date": "2026-08-30"
+  "last_resolve_date": "2026-08-31"
 }
