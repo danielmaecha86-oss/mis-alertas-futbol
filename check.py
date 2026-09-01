@@ -98,164 +98,172 @@ def process_commands(state):
         chat_id = message["chat"]["id"]
         text = message["text"].strip()
 
-        if text.startswith("/start"):
+        try:
+            if text.startswith("/start"):
+                send_message(
+                    chat_id,
+                    "👋 Hola. Comandos:\n"
+                    "/partidos - ver partidos de hoy con cuotas\n"
+                    "/alerta EQUIPO_LOCAL EQUIPO_VISITA CUOTA\n"
+                    "/alertas\n"
+                    "/quitar ID\n"
+                    "/valor on - activar alertas automáticas de value bets\n"
+                    "/valor off - desactivar alertas de value bets\n"
+                    "/rendimiento - ver aciertos de tus value bets pasadas\n"
+                    "/cupo - ver cuántas solicitudes de API llevas usadas hoy\n"
+                    "/prediccion LOCAL vs VISITA - ver predicción de API-Football\n\n"
+                    "Nota: reviso cada 30 min (versión GitHub Actions), "
+                    "no en tiempo real.",
+                )
+
+            elif text.startswith("/rendimiento"):
+                send_message(chat_id, build_rendimiento_message(state))
+
+            elif text.startswith("/valor"):
+                args = text.split()[1:]
+                subs = state["value_subscribers"]
+                if args and args[0].lower() == "off":
+                    if chat_id in subs:
+                        subs.remove(chat_id)
+                    send_message(chat_id, "🔕 Alertas de value bets desactivadas.")
+                elif args and args[0].lower() == "on":
+                    if chat_id not in subs:
+                        subs.append(chat_id)
+                    send_message(
+                        chat_id,
+                        "🎯 Alertas de value bets activadas. Te aviso cuando mi "
+                        "modelo Poisson detecte una cuota con valor en los "
+                        f"partidos de hoy ({len(LEAGUES)} ligas cargadas). "
+                        "Umbral mínimo: "
+                        f"{VALUE_THRESHOLD_DISPLAY}.",
+                    )
+                else:
+                    estado = "activadas ✅" if chat_id in subs else "desactivadas ⏸️"
+                    send_message(
+                        chat_id,
+                        f"Tus alertas de value bets están {estado}.\n"
+                        "Usa /valor on o /valor off para cambiarlo.",
+                    )
+
+            elif text.startswith("/cupo"):
+                send_message(chat_id, build_cupo_message())
+
+            elif text.startswith("/prediccion "):
+                parts = text.split(maxsplit=1)[1] if len(text.split(maxsplit=1)) > 1 else ""
+                send_message(chat_id, build_prediccion_message(parts))
+
+            elif text.startswith("/partidos"):
+                events = fetch_soccer_events(fetch_all_pages=True)
+                if events is None:
+                    send_message(
+                        chat_id,
+                        "⚠️ No pude consultar la API ahora mismo (probablemente "
+                        "se acabó el cupo diario de 100 solicitudes, o hay un "
+                        "problema de conexión). Usa /cupo para confirmar cuánto "
+                        "cupo te queda hoy.",
+                    )
+                elif not events:
+                    send_message(
+                        chat_id,
+                        "Consulté la API correctamente, pero no hay partidos "
+                        "con cuotas publicadas todavía para hoy.",
+                    )
+                else:
+                    all_lines = []
+                    for ev in events:
+                        odds_txt = (
+                            f"cuota local: {ev['home_odds']}"
+                            if ev.get("home_odds")
+                            else "cuota no disponible"
+                        )
+                        all_lines.append(f"• {ev['home']} vs {ev['away']} ({odds_txt})")
+
+                    # Telegram tiene un límite de ~4096 caracteres por mensaje.
+                    # Si hay muchos partidos, los mandamos en varios mensajes
+                    # de máximo 25 líneas cada uno, en vez de cortar la lista.
+                    CHUNK_SIZE = 25
+                    total = len(all_lines)
+                    for i in range(0, total, CHUNK_SIZE):
+                        chunk = all_lines[i : i + CHUNK_SIZE]
+                        parte = (i // CHUNK_SIZE) + 1
+                        partes_totales = (total + CHUNK_SIZE - 1) // CHUNK_SIZE
+                        encabezado = (
+                            f"📅 Partidos de hoy ({total} en total)"
+                            if partes_totales == 1
+                            else f"📅 Partidos de hoy ({total} en total) - parte {parte}/{partes_totales}"
+                        )
+                        send_message(chat_id, "\n".join([encabezado] + chunk))
+
+            elif text.startswith("/alerta "):
+                parts = text.split()[1:]
+                if len(parts) < 3:
+                    send_message(chat_id, "Formato: /alerta LOCAL VISITA CUOTA")
+                    continue
+                *team_parts, odds_str = parts
+                try:
+                    threshold = float(odds_str)
+                except ValueError:
+                    send_message(chat_id, "La cuota debe ser un número, ej: 1.85")
+                    continue
+                mid = len(team_parts) // 2
+                team_home = " ".join(team_parts[:mid]) or team_parts[0]
+                team_away = " ".join(team_parts[mid:]) or team_parts[-1]
+
+                alert_id = state["next_alert_id"]
+                state["next_alert_id"] += 1
+                state["alerts"].append(
+                    {
+                        "id": alert_id,
+                        "chat_id": chat_id,
+                        "team_home": team_home,
+                        "team_away": team_away,
+                        "threshold_odds": threshold,
+                        "triggered": False,
+                    }
+                )
+                send_message(
+                    chat_id,
+                    f"✅ Alerta #{alert_id} creada: {team_home} vs {team_away} "
+                    f"≤ {threshold}",
+                )
+
+            elif text.startswith("/alertas"):
+                mine = [a for a in state["alerts"] if a["chat_id"] == chat_id]
+                if not mine:
+                    send_message(chat_id, "No tienes alertas activas.")
+                    continue
+                lines = ["🔔 Tus alertas:"]
+                for a in mine:
+                    estado = "✅ activada" if a["triggered"] else "⏳ esperando"
+                    lines.append(
+                        f"#{a['id']} — {a['team_home']} vs {a['team_away']} "
+                        f"≤ {a['threshold_odds']} ({estado})"
+                    )
+                send_message(chat_id, "\n".join(lines))
+
+            elif text.startswith("/quitar "):
+                try:
+                    alert_id = int(text.split()[1])
+                except (IndexError, ValueError):
+                    send_message(chat_id, "Formato: /quitar ID")
+                    continue
+                before = len(state["alerts"])
+                state["alerts"] = [
+                    a
+                    for a in state["alerts"]
+                    if not (a["id"] == alert_id and a["chat_id"] == chat_id)
+                ]
+                if len(state["alerts"]) < before:
+                    send_message(chat_id, f"🗑️ Alerta #{alert_id} eliminada.")
+                else:
+                    send_message(chat_id, "No encontré esa alerta.")
+        except Exception as e:
+            print(f"Error procesando comando '{text}': {e}")
             send_message(
                 chat_id,
-                "👋 Hola. Comandos:\n"
-                "/partidos - ver partidos de hoy con cuotas\n"
-                "/alerta EQUIPO_LOCAL EQUIPO_VISITA CUOTA\n"
-                "/alertas\n"
-                "/quitar ID\n"
-                "/valor on - activar alertas automáticas de value bets\n"
-                "/valor off - desactivar alertas de value bets\n"
-                "/rendimiento - ver aciertos de tus value bets pasadas\n"
-                "/cupo - ver cuántas solicitudes de API llevas usadas hoy\n"
-                "/prediccion LOCAL vs VISITA - ver predicción de API-Football\n\n"
-                "Nota: reviso cada 30 min (versión GitHub Actions), "
-                "no en tiempo real.",
+                "⚠️ Hubo un error interno procesando ese comando. "
+                "Ya quedó registrado, prueba de nuevo en un momento.",
             )
-
-        elif text.startswith("/rendimiento"):
-            send_message(chat_id, build_rendimiento_message(state))
-
-        elif text.startswith("/valor"):
-            args = text.split()[1:]
-            subs = state["value_subscribers"]
-            if args and args[0].lower() == "off":
-                if chat_id in subs:
-                    subs.remove(chat_id)
-                send_message(chat_id, "🔕 Alertas de value bets desactivadas.")
-            elif args and args[0].lower() == "on":
-                if chat_id not in subs:
-                    subs.append(chat_id)
-                send_message(
-                    chat_id,
-                    "🎯 Alertas de value bets activadas. Te aviso cuando mi "
-                    "modelo Poisson detecte una cuota con valor en los "
-                    f"partidos de hoy ({len(LEAGUES)} ligas cargadas). "
-                    "Umbral mínimo: "
-                    f"{VALUE_THRESHOLD_DISPLAY}.",
-                )
-            else:
-                estado = "activadas ✅" if chat_id in subs else "desactivadas ⏸️"
-                send_message(
-                    chat_id,
-                    f"Tus alertas de value bets están {estado}.\n"
-                    "Usa /valor on o /valor off para cambiarlo.",
-                )
-
-        elif text.startswith("/cupo"):
-            send_message(chat_id, build_cupo_message())
-
-        elif text.startswith("/prediccion "):
-            parts = text.split(maxsplit=1)[1] if len(text.split(maxsplit=1)) > 1 else ""
-            send_message(chat_id, build_prediccion_message(parts))
-
-        elif text.startswith("/partidos"):
-            events = fetch_soccer_events(fetch_all_pages=True)
-            if events is None:
-                send_message(
-                    chat_id,
-                    "⚠️ No pude consultar la API ahora mismo (probablemente "
-                    "se acabó el cupo diario de 100 solicitudes, o hay un "
-                    "problema de conexión). Usa /cupo para confirmar cuánto "
-                    "cupo te queda hoy.",
-                )
-            elif not events:
-                send_message(
-                    chat_id,
-                    "Consulté la API correctamente, pero no hay partidos "
-                    "con cuotas publicadas todavía para hoy.",
-                )
-            else:
-                all_lines = []
-                for ev in events:
-                    odds_txt = (
-                        f"cuota local: {ev['home_odds']}"
-                        if ev.get("home_odds")
-                        else "cuota no disponible"
-                    )
-                    all_lines.append(f"• {ev['home']} vs {ev['away']} ({odds_txt})")
-
-                # Telegram tiene un límite de ~4096 caracteres por mensaje.
-                # Si hay muchos partidos, los mandamos en varios mensajes
-                # de máximo 25 líneas cada uno, en vez de cortar la lista.
-                CHUNK_SIZE = 25
-                total = len(all_lines)
-                for i in range(0, total, CHUNK_SIZE):
-                    chunk = all_lines[i : i + CHUNK_SIZE]
-                    parte = (i // CHUNK_SIZE) + 1
-                    partes_totales = (total + CHUNK_SIZE - 1) // CHUNK_SIZE
-                    encabezado = (
-                        f"📅 Partidos de hoy ({total} en total)"
-                        if partes_totales == 1
-                        else f"📅 Partidos de hoy ({total} en total) - parte {parte}/{partes_totales}"
-                    )
-                    send_message(chat_id, "\n".join([encabezado] + chunk))
-
-        elif text.startswith("/alerta "):
-            parts = text.split()[1:]
-            if len(parts) < 3:
-                send_message(chat_id, "Formato: /alerta LOCAL VISITA CUOTA")
-                continue
-            *team_parts, odds_str = parts
-            try:
-                threshold = float(odds_str)
-            except ValueError:
-                send_message(chat_id, "La cuota debe ser un número, ej: 1.85")
-                continue
-            mid = len(team_parts) // 2
-            team_home = " ".join(team_parts[:mid]) or team_parts[0]
-            team_away = " ".join(team_parts[mid:]) or team_parts[-1]
-
-            alert_id = state["next_alert_id"]
-            state["next_alert_id"] += 1
-            state["alerts"].append(
-                {
-                    "id": alert_id,
-                    "chat_id": chat_id,
-                    "team_home": team_home,
-                    "team_away": team_away,
-                    "threshold_odds": threshold,
-                    "triggered": False,
-                }
-            )
-            send_message(
-                chat_id,
-                f"✅ Alerta #{alert_id} creada: {team_home} vs {team_away} "
-                f"≤ {threshold}",
-            )
-
-        elif text.startswith("/alertas"):
-            mine = [a for a in state["alerts"] if a["chat_id"] == chat_id]
-            if not mine:
-                send_message(chat_id, "No tienes alertas activas.")
-                continue
-            lines = ["🔔 Tus alertas:"]
-            for a in mine:
-                estado = "✅ activada" if a["triggered"] else "⏳ esperando"
-                lines.append(
-                    f"#{a['id']} — {a['team_home']} vs {a['team_away']} "
-                    f"≤ {a['threshold_odds']} ({estado})"
-                )
-            send_message(chat_id, "\n".join(lines))
-
-        elif text.startswith("/quitar "):
-            try:
-                alert_id = int(text.split()[1])
-            except (IndexError, ValueError):
-                send_message(chat_id, "Formato: /quitar ID")
-                continue
-            before = len(state["alerts"])
-            state["alerts"] = [
-                a
-                for a in state["alerts"]
-                if not (a["id"] == alert_id and a["chat_id"] == chat_id)
-            ]
-            if len(state["alerts"]) < before:
-                send_message(chat_id, f"🗑️ Alerta #{alert_id} eliminada.")
-            else:
-                send_message(chat_id, "No encontré esa alerta.")
 
     return state
 
@@ -346,9 +354,22 @@ def build_cupo_message():
     try:
         resp = requests.get(url, headers=headers, timeout=15)
         resp.raise_for_status()
-        info = resp.json().get("response", {})
+        data = resp.json()
     except requests.RequestException as e:
         return f"⚠️ No pude consultar el cupo: {e}"
+
+    errors = data.get("errors")
+    if errors:
+        return f"⚠️ La API devolvió un error al consultar el cupo: {errors}"
+
+    info = data.get("response", {})
+    # A veces "response" puede no venir como dict si algo salió mal;
+    # nos protegemos para no romper el bot por un formato inesperado.
+    if not isinstance(info, dict):
+        return (
+            "⚠️ No pude leer el cupo (la API devolvió un formato "
+            "inesperado). Intenta de nuevo más tarde."
+        )
 
     reqs = info.get("requests", {})
     current = reqs.get("current", "?")
